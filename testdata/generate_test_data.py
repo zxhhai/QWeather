@@ -1,3 +1,6 @@
+# 生成测试数据脚本
+# 该脚本生成一个4维张量数据集(day, variable, lat, lon)，并保存为 NetCDF 格式
+
 import numpy as np
 import xarray as xr
 
