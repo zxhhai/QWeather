@@ -1,0 +1,34 @@
+# Weather data configuration
+weather_data:
+  # Data path
+  data_dir: "/home/zxh/CQ/dataset"
+  file_pattern: "*.nc"
+  
+  # Data preprocessing
+  preprocessing:
+    normalize: true
+    fill_missing: true
+    time_steps: 24  # Time series length
+  
+  # Feature configuration
+  features:
+    - "temperature"
+    - "humidity" 
+    - "pressure"
+    - "wind_speed"
+  
+  # Target variable
+  target: "temperature"
+  
+  # Data split
+  split:
+    train_ratio: 0.7
+    val_ratio: 0.2
+    test_ratio: 0.1
+    
+# Data loading configuration
+dataloader:
+  batch_size: 32
+  shuffle: true
+  num_workers: 4
+  pin_memory: true

@@ -1,0 +1,25 @@
+# LSTM model configuration
+model:
+  name: "lstm"
+  input_size: 10
+  hidden_size: 64
+  num_layers: 2
+  dropout: 0.2
+  bidirectional: false
+  output_size: 1
+
+# Training configuration
+training:
+  epochs: 150
+  batch_size: 64
+  learning_rate: 0.001
+
+# Optimizer configuration
+optimizer:
+  name: "adam"
+  weight_decay: 0.0001
+
+# Scheduler configuration  
+scheduler:
+  name: "cosine"
+  T_max: 150
