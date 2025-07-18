@@ -58,7 +58,7 @@ class Trainer:
         self.metrics_history = []
 
 
-    def _setup_logger(self) -> logging.logger:
+    def _setup_logger(self) -> logging.Logger:
         """
         Set up a default logger.
 
