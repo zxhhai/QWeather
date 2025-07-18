@@ -282,7 +282,7 @@ class Trainer:
             'optimizer_state_dict': self.optimizer.state_dict(),
             'metrics': metrics,
             'train_losses': self.train_losses,
-            'val_losses': self.val.losses,
+            'val_losses': self.val_losses,
             'metrics_history': self.metrics_history
         }
 
