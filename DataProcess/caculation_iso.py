@@ -1,5 +1,8 @@
 import numpy as np
+import xarray as xr
 from scipy.integrate import quad
+from functools import partial
+import dask
 
 def calculate_isoprene_concentration(
     # 核心遥感输入参数
@@ -7,15 +10,19 @@ def calculate_isoprene_concentration(
     PAR_0: float,              # 海表光合有效辐射 [μE/m²/s] (卫星反演)
     SST: float,                # 海表温度 [°C] (卫星反演)
     
-    # 浮游植物特征参数
-    EF: float,                 # 排放因子 (查表Supplementary Table 1)
-    delta: float,              # 温度修正项 δ = 23.375 - T_opt [°C]
     
     # 海洋物理参数
-    D_ML: float,               # 混合层深度 [m] (再分析数据)
     wind_speed: float,         # 风速 [m/s] (再分析数据)
-    
+    D_ML: float = 1,               # 混合层深度 [m] (再分析数据)
+    ## D_ML待定
+
+    # 浮游植物特征参数
+    delta: float = 1,              # 温度修正项 δ = 23.375 - T_opt [°C]
+    ## delta待定，暂未找到来源
+
     # 模型系数 (默认值来自论文)
+    EF: float = 0.042,                 # 排放因子 (查表Supplementary Table 1)
+    ## EF待定，与海域有关
     a1: float = 3.6402,        # 温度响应系数1
     a2: float = -46.75,        # 温度响应系数2
     a3: float = 618.2,         # 温度响应系数3
@@ -92,3 +99,63 @@ def calculate_isoprene_concentration(
     C_m = P / denominator if denominator != 0 else 0
     
     return C_m
+
+
+# 包装函数，处理NaN和异常
+def isoprene_wrapper(chla, par, sst, wind, D_ML=1, delta=1, EF=0.042):
+    if any(np.isnan([chla, par, sst, wind])):
+        return np.nan
+    try:
+        return calculate_isoprene_concentration(
+            Chla_surface=chla,
+            PAR_0=par,
+            SST=sst,
+            wind_speed=wind,
+            D_ML=D_ML,
+            delta=delta,
+            EF=EF
+        )
+    except Exception as e:
+        print(f"Error: {e} at values {chla}, {par}, {sst}, {wind}")
+        return np.nan
+
+# 主处理流程
+def process_netcdf(input_path, output_path):
+    # 1. 加载数据
+    ds = xr.open_dataset(input_path, chunks={'time': 1, 'lat': 100, 'lon': 100})
+    
+    # 2. 创建固定参数的包装函数
+    calc_isoprene = partial(isoprene_wrapper, D_ML=1, delta=1, EF=0.042)
+    
+    # 3. 并行计算异戊二烯浓度
+    with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+        isoprene = xr.apply_ufunc(
+            calc_isoprene,
+            ds['CHLA'],
+            ds['PAR'],
+            ds['SST'],
+            ds['windspeed'],
+            input_core_dims=[[], [], [], []],
+            vectorize=True,
+            dask='parallelized',
+            output_dtypes=[float],
+            output_core_dims=[[]]
+        )
+    
+    # 4. 创建包含原始变量+异戊二烯的结果文件
+    ds_with_isoprene = ds.copy()
+    ds_with_isoprene['isoprene'] = isoprene
+    ds_with_isoprene.to_netcdf(output_path)
+    
+    # 5. 创建仅含异戊二烯的新文件
+    isoprene_ds = xr.Dataset({'isoprene': isoprene})
+    isoprene_ds.to_netcdf(output_path.replace('.nc', '_isoprene_only.nc'))
+
+# 执行处理
+if __name__ == "__main__":
+    input_nc = r"DataProcess\datas\combined_data.nc"   # 替换为实际输入路径
+    output_nc = "isoprene_results.nc" # 输出文件路径
+    process_netcdf(input_nc, output_nc)
+    print("处理完成！生成了两个新文件:")
+    print(f"- 包含所有变量的结果: {output_nc}")
+    print(f"- 仅含异戊二烯的结果: {output_nc.replace('.nc', '_isoprene_only.nc')}")

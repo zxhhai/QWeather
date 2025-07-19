@@ -2,7 +2,7 @@ import xarray as xr
 
 # 读取.nc文件（替换为你的文件路径）
 ds = xr.open_dataset(
-    r'combined_data.nc')
+    r'DataProcess\datas\combined_data.nc')
 # 打印数据集摘要（类似NCO的ncdump）
 print(ds)
 
