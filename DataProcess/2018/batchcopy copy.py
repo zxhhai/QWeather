@@ -4,10 +4,10 @@ from datetime import datetime, timedelta
 
 def download_single_file_per_day():
     # 配置参数 ================================
-    base_ftp_path = "/pub/SGLI_NRT/L2_In-water_properties/CHLA/"
+    base_ftp_path = "/pub/SGLI_NRT/L2_Thermal_analysis/SST/"
     year = 2018  # 要下载的年份
-    local_dir = "C:/RIP_D/Codes/Python/QWeather/DataProcess/datas/chla"  # 所有文件直接放在这里
-    file_suffix = "CHLA.nc"  # 文件后缀 (如 ".nc", ".hdf", ".dat")   
+    local_dir = "C:/RIP_D/Codes/Python/QWeather/DataProcess/datas/sst"  # 所有文件直接放在这里
+    file_suffix = "SST.nc"  # 文件后缀 (如 ".nc", ".hdf", ".dat")   
     file_prefix = "GC1SG1_"  # 文件前缀
     host = "apollo.eorc.jaxa.jp"
     timeout = 60  # FTP连接超时（秒）

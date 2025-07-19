@@ -1,8 +1,8 @@
 import xarray as xr
 
 # 读取.nc文件（替换为你的文件路径）
-ds = xr.open_dataset(r'C:\RIP_D\Codes\Python\QWeather\DataProcess\datas\chla\GC1SG1_201801010021003300_L2MG_NWLRQ_2007_PAR.nc')
-
+ds = xr.open_dataset(
+    r'combined_data.nc')
 # 打印数据集摘要（类似NCO的ncdump）
 print(ds)
 
