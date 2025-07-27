@@ -1,92 +1,77 @@
-from models.convlstm import ConvLSTM
+from models.convlstm.convlstm_model import ConvLSTMModel
 from datasets.dataset import WeatherDataset
 from utils.trainer import Trainer
 from utils.optimizer import get_optimizer, get_scheduler
+from configs.base_config import TrainingConfig
 from torch.utils.data import DataLoader
 import torch.nn as nn
 import torch
 
 
-import torch.nn as nn
+config = TrainingConfig(config_path='configs/convlstm_config.yaml')
 
-class Predictor(nn.Module):
-    def __init__(self, hidden_dim, output_dim, T_out):
-        super().__init__()
-        self.T_out = T_out
-        self.conv = nn.Conv2d(hidden_dim, output_dim * T_out, kernel_size=3, padding=1)
+# 确保kernel_size_list是元组列表
+kernel_size_list = [tuple(ks) for ks in config.model.kernel_size_list]
 
-    def forward(self, h):
-        # h: (B, hidden_dim, H, W)
-        out = self.conv(h)  # (B, output_dim * T_out, H, W)
-        B, C, H, W = out.shape
-        out = out.view(B, self.T_out, -1, H, W)  # (B, T_out, output_dim, H, W)
-        return out
-
-
-class ConvLSTMWeatherModel(nn.Module):
-    def __init__(self, input_dim, hidden_dim_list, kernel_size_list, num_layers, output_dim, T_out):
-        super().__init__()
-        # 这里实例化自己的ConvLSTM
-        self.convlstm = ConvLSTM(
-            input_dim=input_dim,
-            hidden_dim=hidden_dim_list,
-            kernel_size=kernel_size_list,
-            num_layers=num_layers,
-            batch_first=True,
-            bias=True,
-            return_all_layers=False
-        )
-        # Predictor的hidden_dim应该是最后一层的hidden_dim
-        self.predictor = Predictor(hidden_dim_list[-1], output_dim, T_out)
-
-    def forward(self, x):
-        layer_outputs, last_states = self.convlstm(x)
-        last_hidden = last_states[-1][0]  # 取最后一层最后时间步的隐藏状态 (B, hidden_dim, H, W)
-        pred = self.predictor(last_hidden)  # (B, T_out, output_dim, H, W)
-        return pred
-
-
-# 示例调用
-model = ConvLSTMWeatherModel(
-    input_dim=4,
-    hidden_dim_list=[16, 16, 4],
-    kernel_size_list=[(3, 3), (3, 3), (3, 3)],
-    num_layers=3,
-    output_dim=4,
-    T_out=1
+model = ConvLSTMModel(
+    input_dim=config.model.input_dim,
+    hidden_dim_list=config.model.hidden_dim_list,
+    kernel_size_list=kernel_size_list,  # 使用转换后的元组列表
+    num_layers=config.model.num_layers,
+    output_dim=config.model.output_dim,
+    T_out=config.model.T_out
 )
 
-
-optimizer = get_optimizer(model, 'adam', lr=0.001)
-scheduler = get_scheduler(optimizer, 'step', step_size=10, gamma=0.1)
+optimizer = get_optimizer(
+    model, 
+    config.optimizer.name, 
+    lr=config.training.learning_rate
+)
+scheduler = get_scheduler(
+    optimizer, 
+    config.scheduler.name, 
+    step_size=config.scheduler.step_size, 
+    gamma=config.scheduler.gamma
+)
 
 trainer = Trainer(
     model=model,
     criterion=nn.MSELoss(),
     optimizer=optimizer,
-    device='cuda' if torch.cuda.is_available() else 'cpu',
+    device=torch.device('cuda' if torch.cuda.is_available() else 'cpu'),
     scheduler=scheduler,
     save_path='./checkpoints',
 )
 
 train_dataset = WeatherDataset(
-    file_path='/home/zxh/CQ/QWeather/testdata/test_data.nc',
-    input_seq_len=8,
-    target_seq_len=1,
-    var_name='data'
+    file_path=config.data.file_path,
+    input_seq_len=config.data.input_seq_len,
+    target_seq_len=config.data.target_seq_len,
+    var_name=config.data.var_name
 )
 val_dataset = WeatherDataset(
-    file_path='/home/zxh/CQ/QWeather/testdata/test_data.nc',
-    input_seq_len=8,
-    target_seq_len=1,
-    var_name='data'
+    file_path=config.data.file_path,
+    input_seq_len=config.data.input_seq_len,
+    target_seq_len=config.data.target_seq_len,
+    var_name=config.data.var_name
 )
-train_loader = DataLoader(train_dataset, batch_size=4, shuffle=True, num_workers=4)
-val_loader = DataLoader(val_dataset, batch_size=4, shuffle=False, num_workers=4)
 
+train_loader = DataLoader(
+    train_dataset, 
+    batch_size=config.training.batch_size, 
+    shuffle=True, 
+    num_workers=4
+)
+val_loader = DataLoader(
+    val_dataset, 
+    batch_size=config.training.batch_size, 
+    shuffle=False, 
+    num_workers=4
+)
 
+# training
 trainer.train(
     train_loader=train_loader,
     val_loader=val_loader,
-    epochs=10,
+    epochs=config.training.epochs,
 )
