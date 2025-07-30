@@ -2,7 +2,7 @@
 model:
   name: "convlstm"
   input_dim: 8
-  hidden_dim_list: [16, 16, 8]
+  hidden_dim_list: [4, 4, 8]
   kernel_size_list: [[3, 3], [3, 3], [3, 3]]
   num_layers: 3
   output_dim: 8
@@ -35,14 +35,14 @@ scheduler:
 
 # Data configuration
 data:
-  file_path: "/home/zxh/CQ/dataset/isoprene_results.nc" # 更改为数据文件路径
+  file_path: "/home/zxh/CQ/dataset/data_small.nc" # 更改为数据文件路径
   var_name: ["CHLA", "PAR", "SST", "sla", "tco", "HCHO", "windspeed", "isoprene"]
   input_seq_len: 8
   target_seq_len: 1
   train_ratio: 0.7
   val_ratio: 0.2
   test_ratio: 0.1
-  indices_dir: "/home/zxh/CQ/QWeather/datasets/data/indices" # 索引目录路径
+  indices_dir: "/home/zxh/CQ/QWeather/datasets/split/small" # 索引目录路径
   shuffle: true
   num_workers: 4
 
