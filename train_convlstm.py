@@ -47,13 +47,17 @@ train_dataset = WeatherDataset(
     file_path=config.data.file_path,
     input_seq_len=config.data.input_seq_len,
     target_seq_len=config.data.target_seq_len,
-    var_name=config.data.var_name
+    var_name=config.data.var_name,
+    indices_dir=config.data.indices_dir,
+    split='train'
 )
 val_dataset = WeatherDataset(
     file_path=config.data.file_path,
     input_seq_len=config.data.input_seq_len,
     target_seq_len=config.data.target_seq_len,
-    var_name=config.data.var_name
+    var_name=config.data.var_name,
+    indices_dir=config.data.indices_dir,
+    split='val'
 )
 
 train_loader = DataLoader(
