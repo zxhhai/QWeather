@@ -107,6 +107,10 @@ class WeatherDataset(Dataset):
         
         input_seq = seq[:self.input_seq_len]
         target_seq = seq[self.input_seq_len:]
+
+        # 用0代替nan值
+        input_seq = torch.nan_to_num(input_seq, nan=0.0)
+        target_seq = torch.nan_to_num(target_seq, nan=0.0)
         return input_seq, target_seq
     
     def get_info(self):

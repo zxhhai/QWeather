@@ -36,7 +36,7 @@ scheduler = get_scheduler(
 
 trainer = Trainer(
     model=model,
-    criterion=nn.MSELoss(),
+    criterion=nn.L1Loss(),
     optimizer=optimizer,
     device=torch.device('cuda' if torch.cuda.is_available() else 'cpu'),
     scheduler=scheduler,

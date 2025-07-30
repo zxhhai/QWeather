@@ -17,10 +17,10 @@ data = np.random.rand(len(days), len(variables), len(lat), len(lon)).astype(np.f
 # 创建 xarray Dataset
 ds = xr.Dataset(
     {
-        "data": (("day", "variable", "lat", "lon"), data)
+        "data": (("time", "variable", "lat", "lon"), data)
     },
     coords={
-        "day": days,
+        "time": days,
         "variable": variables,
         "lat": lat,
         "lon": lon

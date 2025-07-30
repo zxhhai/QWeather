@@ -103,8 +103,8 @@ class Trainer:
                 # forward pass
                 self.optimizer.zero_grad()
                 output = self.model(data)
-                print(output)
-                loss = self.criterion(output, target)
+                # print(output)
+                loss = self.criterion(output, target) * 1 / 10000000000000
 
                 # backward pass
                 loss.backward()
