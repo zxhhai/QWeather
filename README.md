@@ -1,10 +1,12 @@
-# QWeather
-QML for Weather Forecasting.
+# 基于量子技术的气象预测
 
-2025.7.8: start QWether!
+## 依赖
+```
+```
 
-
-## testing
-
-run generate\_test\_data.py to generate a 4D tensor (365, 4, 180, 360), store as .nc file to train a test model.
+## 训练ConvLSTMModel
+更改configs/convlstm_config.yaml配置文件，然后运行
+```bash
+python train_convlstm.py
+```
 
