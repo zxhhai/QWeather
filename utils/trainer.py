@@ -104,7 +104,7 @@ class Trainer:
                 self.optimizer.zero_grad()
                 output = self.model(data)
                 # print(output)
-                loss = self.criterion(output, target) * 1 / 10000000000000
+                loss = self.criterion(output, target)
 
                 # backward pass
                 loss.backward()
@@ -298,7 +298,8 @@ class Trainer:
         if is_best:
             best_model_path = os.path.join(self.save_path, 'best_model.pth')
             torch.save(checkpoint, best_model_path)
-            self.logger.info(f"New best model saved with metric: {metrics}")
+            self.logger.info(f"\033[92mNew best model saved with metric: {metrics}\033[0m")
+
 
 
     def load_checkpoint(self, checkpoint_path: str) -> None:

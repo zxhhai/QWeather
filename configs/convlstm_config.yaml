@@ -11,7 +11,7 @@ model:
 
 # Training configuration
 training:
-  epochs: 100
+  epochs: 10
   batch_size: 4
   learning_rate: 0.001
   weight_decay: 0.0001
@@ -45,6 +45,10 @@ data:
   indices_dir: "/home/zxh/CQ/QWeather/datasets/split/small" # 索引目录路径
   shuffle: true
   num_workers: 4
+  normalize: true
+  scaler_type: "standard" # 可选: "minmax", "standard"
+  scaler_save_path: "/home/zxh/CQ/QWeather/datasets/scaler.pkl" # 标准化器保存路径
+
 
 # Logging configuration
 logging:

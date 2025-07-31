@@ -1,5 +1,5 @@
 from models.convlstm.convlstm_model import ConvLSTMModel
-from datasets.dataset import WeatherDataset
+from datasets.dataset import WeatherDataset, create_dataloaders_with_normalization
 from utils.trainer import Trainer
 from utils.optimizer import get_optimizer, get_scheduler
 from configs.base_config import TrainingConfig
@@ -36,42 +36,28 @@ scheduler = get_scheduler(
 
 trainer = Trainer(
     model=model,
-    criterion=nn.L1Loss(),
+    criterion=nn.MSELoss(),
     optimizer=optimizer,
     device=torch.device('cuda' if torch.cuda.is_available() else 'cpu'),
     scheduler=scheduler,
-    save_path='./checkpoints',
+    save_path='./checkpoints/convlstm',
 )
 
-train_dataset = WeatherDataset(
-    file_path=config.data.file_path,
+dataloaders = create_dataloaders_with_normalization(
+    data_file=config.data.file_path,
+    indices_dir=config.data.indices_dir,
+    var_name=config.data.var_name,
     input_seq_len=config.data.input_seq_len,
     target_seq_len=config.data.target_seq_len,
-    var_name=config.data.var_name,
-    indices_dir=config.data.indices_dir,
-    split='train'
-)
-val_dataset = WeatherDataset(
-    file_path=config.data.file_path,
-    input_seq_len=config.data.input_seq_len,
-    target_seq_len=config.data.target_seq_len,
-    var_name=config.data.var_name,
-    indices_dir=config.data.indices_dir,
-    split='val'
+    batch_size=config.training.batch_size,
+    num_workers=config.data.num_workers,
+    normalize=config.data.normalize,
+    scaler_type=config.data.scaler_type,
+    scaler_save_path=config.data.scaler_save_path,
 )
 
-train_loader = DataLoader(
-    train_dataset, 
-    batch_size=config.training.batch_size, 
-    shuffle=True, 
-    num_workers=config.data.num_workers
-)
-val_loader = DataLoader(
-    val_dataset, 
-    batch_size=config.training.batch_size, 
-    shuffle=False, 
-    num_workers=config.data.num_workers
-)
+train_loader = dataloaders['train']
+val_loader = dataloaders['val']
 
 # training
 trainer.train(
