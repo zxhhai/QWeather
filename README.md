@@ -2,6 +2,10 @@
 
 ## 依赖
 ```
+torch
+xarray
+numpy
+tqdm
 ```
 
 ## 训练ConvLSTMModel

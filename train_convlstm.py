@@ -34,15 +34,6 @@ scheduler = get_scheduler(
     gamma=config.scheduler.gamma
 )
 
-trainer = Trainer(
-    model=model,
-    criterion=nn.MSELoss(),
-    optimizer=optimizer,
-    device=torch.device('cuda' if torch.cuda.is_available() else 'cpu'),
-    scheduler=scheduler,
-    save_path='./checkpoints/convlstm',
-)
-
 dataloaders = create_dataloaders_with_normalization(
     data_file=config.data.file_path,
     indices_dir=config.data.indices_dir,
@@ -58,6 +49,15 @@ dataloaders = create_dataloaders_with_normalization(
 
 train_loader = dataloaders['train']
 val_loader = dataloaders['val']
+
+trainer = Trainer(
+    model=model,
+    criterion=nn.MSELoss(),
+    optimizer=optimizer,
+    device=torch.device('cuda' if torch.cuda.is_available() else 'cpu'),
+    scheduler=scheduler,
+    save_path='./checkpoints/convlstm',
+)
 
 # training
 trainer.train(

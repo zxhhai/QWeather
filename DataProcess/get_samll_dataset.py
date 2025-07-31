@@ -15,7 +15,7 @@ def get_small_dataset(ds):
     return ds_small
 
 
-ds = xr.open_dataset('/home/zxh/CQ/dataset/isoprene_results.nc')
+ds = xr.open_dataset('/home/zxh/CQ/dataset/isoprene_results2.nc')
 
 ds_small = get_small_dataset(ds)
 
