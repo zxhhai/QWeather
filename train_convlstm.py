@@ -56,12 +56,17 @@ trainer = Trainer(
     optimizer=optimizer,
     device=torch.device('cuda' if torch.cuda.is_available() else 'cpu'),
     scheduler=scheduler,
-    save_path='./checkpoints/convlstm',
+    save_path=config.training.checkpoint_path
 )
+
+# Load the latest checkpoint
+trainer.load_checkpoint(config.training.checkpoint_path + '/latest_checkpoint.pth')
 
 # training
 trainer.train(
     train_loader=train_loader,
     val_loader=val_loader,
     epochs=config.training.epochs,
+    early_stopping_patience=config.training.early_stopping_patience,
+    save_every=config.training.save_every,
 )

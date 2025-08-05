@@ -19,6 +19,7 @@ training:
   save_every: 5
   device: "cuda"
   seed: 42
+  checkpoint_path: "./checkpoints/convlstm" # 保存模型检查点的路径
 
 # Optimizer configuration
 optimizer:
