@@ -230,8 +230,8 @@ def show_split_info(indices_dir):
 
 if __name__ == "__main__":
     # 示例用法
-    data_file = "/home/zxh/CQ/dataset/data_large.nc"
-    output_dir = "split/large"
+    data_file = "/home/zxh/CQ/dataset/data_tiny.nc"
+    output_dir = "split/tiny"
     
     print("Creating split indices...")
     splits = create_split_indices(

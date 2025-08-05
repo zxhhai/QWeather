@@ -4,8 +4,8 @@ def get_small_dataset(ds):
     """
     """
     ds_small = ds.isel(
-        lat=slice(0, 40),
-        lon=slice(0, 40)
+        lat=slice(0, 4),
+        lon=slice(0, 4)
     )
     
     print(f"Original shape: {ds.sizes}")
@@ -15,9 +15,9 @@ def get_small_dataset(ds):
     return ds_small
 
 
-ds = xr.open_dataset('/home/zxh/CQ/dataset/isoprene_results2.nc')
+ds = xr.open_dataset('/home/zxh/CQ/dataset/data_large.nc')
 
 ds_small = get_small_dataset(ds)
 
 # 保存小数据集
-ds_small.to_netcdf('/home/zxh/CQ/dataset/data_small.nc')
+ds_small.to_netcdf('/home/zxh/CQ/dataset/data_tiny.nc')
