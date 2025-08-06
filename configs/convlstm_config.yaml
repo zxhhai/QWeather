@@ -20,6 +20,7 @@ training:
   device: "cuda"
   seed: 42
   checkpoint_path: "./checkpoints/convlstm" # 保存模型检查点的路径
+  resume: false
 
 # Optimizer configuration
 optimizer:
@@ -53,6 +54,5 @@ data:
 
 # Logging configuration
 logging:
-  log_dir: "logs"
-  log_level: "INFO"
+  log_dir: "logs/convlstm"
   save_logs: true

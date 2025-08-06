@@ -23,7 +23,7 @@ class QuantumConv(nn.Module):
                 {"input_idx": [i], "func": "ry", "wires": [i]} for i in range(self.n_qubits)
             ]
         )
-        self.arch = {"n_wires": self.n_qubits, "n_blocks": 1, "n_layers_per_block": 2}
+        self.arch = {"n_wires": self.n_qubits, "n_blocks": 1, "n_layers_per_block": 2} # rx ry rz CONT xx yy zz
         self.q_layer = U3CU3Layer0(self.arch)
         self.measure = tq.MeasureAll(tq.PauliZ)
         

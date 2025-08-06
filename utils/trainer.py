@@ -9,7 +9,7 @@ from torch.optim import Optimizer
 from torch.optim.lr_scheduler import _LRScheduler
 import numpy as np
 from tqdm import tqdm
-
+from datetime import datetime
 
 class Trainer:
     """A class to handle the training and evaluation of a PyTorch model."""
@@ -22,7 +22,9 @@ class Trainer:
         device: torch.device,
         scheduler: Optional[_LRScheduler] = None,
         save_path: str = "checkpoints",
-        logger: Optional[logging.Logger] = None
+        logger: Optional[logging.Logger] = None,
+        log_dir: str = "logs",
+        save_logs: bool = True
     ) -> None:
         """
         Initialize the Trainer.
@@ -45,7 +47,7 @@ class Trainer:
         self.device = device
         self.scheduler = scheduler
         self.save_path = save_path
-        self.logger = logger or self._setup_logger()
+        self.logger = logger or self._setup_logger(log_dir, save_logs)
 
         # create save directory if it does not exist
         os.makedirs(self.save_path, exist_ok=True)
@@ -58,7 +60,7 @@ class Trainer:
         self.metrics_history = []
 
 
-    def _setup_logger(self) -> logging.Logger:
+    def _setup_logger(self, log_dir: str = "logs", save_logs: bool = True) -> logging.Logger:
         """
         Set up a default logger.
 
@@ -72,12 +74,23 @@ class Trainer:
         logger.setLevel(logging.INFO)
 
         if not logger.handlers:
-            handler = logging.StreamHandler()
+            stream_handler = logging.StreamHandler()
             formatter = logging.Formatter(
                 "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
             )
-            handler.setFormatter(formatter)
-            logger.addHandler(handler)
+            stream_handler.setFormatter(formatter)
+            logger.addHandler(stream_handler)
+            
+            if save_logs:
+                os.makedirs(log_dir, exist_ok=True)
+                log_filename = os.path.join(log_dir, f"trainer_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log")
+                file_handler = logging.FileHandler(log_filename)
+                file_handler.setLevel(logging.INFO)
+                file_formatter = logging.Formatter(
+                    "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+                )
+                file_handler.setFormatter(file_formatter)
+                logger.addHandler(file_handler)
 
         return logger
 

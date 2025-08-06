@@ -190,6 +190,12 @@ class TrainingConfig(BaseConfig):
             else:
                 # 递归补全缺失的默认值
                 self._fill_defaults(self.config[key], value)
+        
+        # 转换 kernel_size_list 为 tuple 列表
+        if hasattr(self.config.model, 'kernel_size_list'):
+            self.config.model.kernel_size_list = [
+                tuple(x) for x in self.config.model.kernel_size_list
+            ]
 
     def _fill_defaults(self, current, defaults):
         """递归填充默认值，确保所有字典都是AttrDict"""
