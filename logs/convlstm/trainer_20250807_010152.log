@@ -1,0 +1,21 @@
+2025-08-07 01:01:52,863 - trainer - INFO - Starting training for 10 epochs...
+2025-08-07 01:01:58,420 - trainer - INFO - Epoch 1 / 10 - Train Loss: 0.8303 - val_loss: 0.7620
+2025-08-07 01:01:58,456 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.7620340718163384}[0m
+2025-08-07 01:02:02,621 - trainer - INFO - Epoch 2 / 10 - Train Loss: 0.6778 - val_loss: 0.7067
+2025-08-07 01:02:02,642 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.7066833873589834}[0m
+2025-08-07 01:02:06,646 - trainer - INFO - Epoch 3 / 10 - Train Loss: 0.6380 - val_loss: 0.6729
+2025-08-07 01:02:06,674 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.6729345917701721}[0m
+2025-08-07 01:02:10,868 - trainer - INFO - Epoch 4 / 10 - Train Loss: 0.6194 - val_loss: 0.6508
+2025-08-07 01:02:10,889 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.6508231427934434}[0m
+2025-08-07 01:02:14,954 - trainer - INFO - Epoch 5 / 10 - Train Loss: 0.6047 - val_loss: 0.6367
+2025-08-07 01:02:14,978 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.6367166381743219}[0m
+2025-08-07 01:02:18,915 - trainer - INFO - Epoch 6 / 10 - Train Loss: 0.5907 - val_loss: 0.6276
+2025-08-07 01:02:18,940 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.6275636694497533}[0m
+2025-08-07 01:02:23,000 - trainer - INFO - Epoch 7 / 10 - Train Loss: 0.5862 - val_loss: 0.6281
+2025-08-07 01:02:27,023 - trainer - INFO - Epoch 8 / 10 - Train Loss: 0.5781 - val_loss: 0.6235
+2025-08-07 01:02:27,046 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.6234852265980508}[0m
+2025-08-07 01:02:30,988 - trainer - INFO - Epoch 9 / 10 - Train Loss: 0.5739 - val_loss: 0.6230
+2025-08-07 01:02:31,008 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.6229953836235735}[0m
+2025-08-07 01:02:35,092 - trainer - INFO - Epoch 10 / 10 - Train Loss: 0.5710 - val_loss: 0.6174
+2025-08-07 01:02:35,116 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.6173660324679481}[0m
+2025-08-07 01:02:35,117 - trainer - INFO - Training completed in 42.25 seconds.

@@ -1,0 +1,22 @@
+2025-08-07 01:25:03,261 - trainer - INFO - Starting training for 10 epochs...
+2025-08-07 01:25:08,313 - trainer - INFO - Epoch 1 / 10 - Train Loss: 0.7752 - val_loss: 0.6925
+2025-08-07 01:25:08,338 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.6924928410185708}[0m
+2025-08-07 01:25:12,189 - trainer - INFO - Epoch 2 / 10 - Train Loss: 0.6391 - val_loss: 0.6488
+2025-08-07 01:25:12,209 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.6487765469484859}[0m
+2025-08-07 01:25:15,886 - trainer - INFO - Epoch 3 / 10 - Train Loss: 0.5974 - val_loss: 0.5882
+2025-08-07 01:25:15,907 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.5881651962796847}[0m
+2025-08-07 01:25:19,601 - trainer - INFO - Epoch 4 / 10 - Train Loss: 0.5648 - val_loss: 0.5616
+2025-08-07 01:25:19,624 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.5616380870342255}[0m
+2025-08-07 01:25:23,457 - trainer - INFO - Epoch 5 / 10 - Train Loss: 0.5415 - val_loss: 0.5481
+2025-08-07 01:25:23,476 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.5481153867310948}[0m
+2025-08-07 01:25:27,270 - trainer - INFO - Epoch 6 / 10 - Train Loss: 0.5350 - val_loss: 0.5419
+2025-08-07 01:25:27,287 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.5419184188875887}[0m
+2025-08-07 01:25:31,105 - trainer - INFO - Epoch 7 / 10 - Train Loss: 0.5251 - val_loss: 0.5468
+2025-08-07 01:25:34,822 - trainer - INFO - Epoch 8 / 10 - Train Loss: 0.5286 - val_loss: 0.5330
+2025-08-07 01:25:34,845 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.5330256761776077}[0m
+2025-08-07 01:25:38,606 - trainer - INFO - Epoch 9 / 10 - Train Loss: 0.5267 - val_loss: 0.5267
+2025-08-07 01:25:38,623 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.526745026310285}[0m
+2025-08-07 01:25:42,509 - trainer - INFO - Epoch 10 / 10 - Train Loss: 0.5193 - val_loss: 0.5255
+2025-08-07 01:25:42,528 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.5255352180037234}[0m
+2025-08-07 01:25:42,529 - trainer - INFO - Training completed in 39.27 seconds.
+2025-08-07 01:25:42,540 - trainer - INFO - Training history saved to ./checkpoints/convlstm/training_history.json

@@ -355,3 +355,19 @@ class Trainer:
             'current_epoch': self.current_epoch,
             'best_metric': self.best_metric
         }
+    
+    def save_training_history(self, save_path: str) -> None:
+        """
+        Save the training history to a file.
+
+        Args:
+            save_path (str): Path to save the training history.
+        
+        Returns:
+            None
+        """
+        import json
+        history = self.get_training_history()
+        with open(save_path, 'w') as f:
+            json.dump(history, f, indent=4)
+        self.logger.info(f'Training history saved to {save_path}')

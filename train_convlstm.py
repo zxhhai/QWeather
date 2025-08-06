@@ -5,6 +5,7 @@ from datasets.dataset import create_dataloaders_with_normalization
 from utils.trainer import Trainer
 from utils.optimizer import get_optimizer, get_scheduler
 from configs.base_config import TrainingConfig
+from visualizations.plot_training_history import plot_training_history
 
 
 def main():
@@ -70,6 +71,9 @@ def main():
         early_stopping_patience=config.training.early_stopping_patience,
         save_every=config.training.save_every,
     )
+
+    trainer.save_training_history(save_path=config.training.checkpoint_path + '/training_history.json')
+    plot_training_history(trainer.get_training_history())
 
 if __name__ == "__main__":
     main()
