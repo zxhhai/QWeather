@@ -1,0 +1,21 @@
+2025-08-07 16:38:02,430 - trainer - INFO - Starting training for 100 epochs...
+2025-08-07 16:40:21,305 - trainer - INFO - Epoch 1 / 100 - Train Loss: 0.9970 - val_loss: 0.9811
+2025-08-07 16:40:21,426 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.9810635356439484}[0m
+2025-08-07 16:42:57,557 - trainer - INFO - Epoch 2 / 100 - Train Loss: 0.8976 - val_loss: 0.8891
+2025-08-07 16:42:57,627 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.889061006406943}[0m
+2025-08-07 16:45:17,310 - trainer - INFO - Epoch 3 / 100 - Train Loss: 0.8441 - val_loss: 0.8483
+2025-08-07 16:45:17,371 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.8483415395021439}[0m
+2025-08-07 16:47:39,947 - trainer - INFO - Epoch 4 / 100 - Train Loss: 0.8034 - val_loss: 0.7957
+2025-08-07 16:47:40,007 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.7957047551042504}[0m
+2025-08-07 16:49:56,028 - trainer - INFO - Epoch 5 / 100 - Train Loss: 0.7322 - val_loss: 0.7268
+2025-08-07 16:49:56,097 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.7268005936510034}[0m
+2025-08-07 16:52:10,884 - trainer - INFO - Epoch 6 / 100 - Train Loss: 0.6789 - val_loss: 0.6903
+2025-08-07 16:52:10,946 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.6902539481719335}[0m
+2025-08-07 16:54:30,280 - trainer - INFO - Epoch 7 / 100 - Train Loss: 0.6507 - val_loss: 0.6772
+2025-08-07 16:54:30,348 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.6772487482262982}[0m
+2025-08-07 16:56:43,100 - trainer - INFO - Epoch 8 / 100 - Train Loss: 0.6326 - val_loss: 0.6526
+2025-08-07 16:56:43,159 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.6526214169959227}[0m
+2025-08-07 16:58:55,407 - trainer - INFO - Epoch 9 / 100 - Train Loss: 0.6186 - val_loss: 0.6418
+2025-08-07 16:58:55,467 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.6417958926823404}[0m
+2025-08-07 17:01:19,811 - trainer - INFO - Epoch 10 / 100 - Train Loss: 0.6131 - val_loss: 0.6382
+2025-08-07 17:01:19,877 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.6382493790653017}[0m

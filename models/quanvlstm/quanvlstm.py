@@ -68,6 +68,54 @@ class QuantumConv(nn.Module):
         out = out.view(B, self.out_channels, side_h, side_w)
         return out
 
+class QuantumConv2(nn.Module):
+    def __init__(self, in_channels, out_channels, n_qubits):
+        super().__init__()
+        self.in_channels = in_channels
+        self.out_channels = out_channels
+        self.n_qubits = n_qubits
+
+        self.classical_conv = nn.Conv2d(in_channels, n_qubits, kernel_size=3, stride=1, padding=1)
+
+        self.encoder = tq.GeneralEncoder(
+            [{"input_idx": [i], "func": "ry", "wires": [i]} for i in range(n_qubits)]
+        )
+
+        self.arch = {"n_wires": n_qubits, "n_blocks": 5, "n_layers_per_block": 2}
+        self.q_layer = U3CU3Layer0(self.arch)
+
+        # 定义多个测量器
+        self.measure_z = tq.MeasureAll(tq.PauliZ)
+        #self.measure_x = tq.MeasureAll(tq.PauliX)
+        #self.measure_y = tq.MeasureAll(tq.PauliY)
+
+        # 输出层输入维度要乘以测量的观测量数量
+        self.fc_out = nn.Linear(n_qubits, out_channels)
+
+    def forward(self, x):
+        B, C, H, W = x.shape
+        x = self.classical_conv(x)
+        x = x.permute(0, 2, 3, 1).reshape(B * H * W, self.n_qubits)
+
+        qdev = tq.QuantumDevice(n_wires=self.n_qubits, bsz=B * H * W, device=x.device)
+
+        self.encoder(qdev, x)
+        self.q_layer(qdev)
+
+        # 分别测量 Z、X、Y
+        measured = self.measure_z(qdev)  # [B*H*W, n_qubits]
+        #mx = self.measure_x(qdev)
+        #my = self.measure_y(qdev)
+
+        # measured = torch.cat([mz, mx, my], dim=1)  # 拼接成 [B*H*W, n_qubits*3]
+
+        out = self.fc_out(measured)
+        out = out.view(B, H, W, self.out_channels).permute(0, 3, 1, 2)
+        return out
+
+
+
+
 class QuanvLSTMCell(nn.Module):
 
     def __init__(self, input_dim: int, hidden_dim: int, kernel_size: tuple, n_qubits: int = 4):
@@ -86,11 +134,19 @@ class QuanvLSTMCell(nn.Module):
         self.kernel_size = kernel_size
         self.n_qubits = n_qubits
 
-        self.quanv = QuantumConv(
+        self.conv = nn.Conv2d(
             in_channels=self.input_dim + self.hidden_dim,
-            out_channels=4 * self.hidden_dim,
-            patch_size=self.kernel_size[0],
-            stride=1,
+            out_channels=3 * self.hidden_dim,
+            kernel_size=self.kernel_size,
+            padding=self.kernel_size[0] // 2,  # Assuming square kernel
+            bias=True
+            )
+
+        self.quanv = QuantumConv2(
+            in_channels=self.input_dim + self.hidden_dim,
+            out_channels=self.hidden_dim,
+            #patch_size=self.kernel_size[0],
+            #stride=1,
             n_qubits=self.n_qubits
         )
     
@@ -99,8 +155,11 @@ class QuanvLSTMCell(nn.Module):
 
         combined = torch.cat([input_tensor, h_cur], dim=1) # concatenate along channel axis
 
-        combined_quanv = self.quanv(combined)
-        cc_i, cc_f, cc_o, cc_g = torch.split(combined_quanv, self.hidden_dim, dim=1)
+        combined_conv = self.conv(combined)
+        cc_i, cc_f, cc_o = torch.split(combined_conv, self.hidden_dim, dim=1)
+
+        cc_g = self.quanv(combined)
+
         i = torch.sigmoid(cc_i)
         f = torch.sigmoid(cc_f)
         o = torch.sigmoid(cc_o)

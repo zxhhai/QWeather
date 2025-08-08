@@ -1,20 +1,22 @@
-# ConvLSTM model configuration
+# QuanvLSTM model configuration
 model:
   name: "quanvlstm"
   input_dim: 8
   output_dim: 8
   T_out: 1
-  num_layers: 1
-  hidden_dim_list: [1]
-  kernel_size_list: [[3, 3]]
-  n_qubits_list: [2] # 每层的量子比特数
+  num_layers: 2
+  hidden_dim_list: [16, 32]
+  kernel_size_list: [[3, 3], [3, 3]]
+  n_qubits_list: [8, 8] # 每层的量子比特数
 
 # Training configuration
 training:
-  epochs: 100
+  epochs: 10
   batch_size: 1
   learning_rate: 0.001
+  quantum_lr: 0.001 # 量子参数的学习率
   weight_decay: 0.0001
+  quantum_weight_decay: 0.0001 # 量子参数的权重衰减
   early_stopping_patience: 20
   save_every: 5
   device: "cuda"
@@ -37,14 +39,14 @@ scheduler:
 
 # Data configuration
 data:
-  file_path: "/home/zxh/CQ/dataset/data_tiny.nc" # 更改为数据文件路径
+  file_path: "/home/zxh/CQ/dataset/data_small.nc" # 更改为数据文件路径
   var_name: ["CHLA", "PAR", "SST", "sla", "tco", "HCHO", "windspeed", "isoprene"]
   input_seq_len: 8
   target_seq_len: 1
   train_ratio: 0.7
   val_ratio: 0.2
   test_ratio: 0.1
-  indices_dir: "/home/zxh/CQ/QWeather/datasets/split/tiny" # 索引目录路径
+  indices_dir: "/home/zxh/CQ/QWeather/datasets/split/small" # 索引目录路径
   shuffle: true
   num_workers: 4
   normalize: true

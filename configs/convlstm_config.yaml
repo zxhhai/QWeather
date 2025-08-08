@@ -4,10 +4,9 @@ model:
   input_dim: 8
   output_dim: 8
   T_out: 1
-  num_layers: 3
-  hidden_dim_list: [16, 16, 8]
-  kernel_size_list: [[3, 3], [3, 3], [3, 3]]
-  dropout: 0.2
+  num_layers: 2
+  hidden_dim_list: [16, 32]
+  kernel_size_list: [[3, 3], [3, 3]]
 
 # Training configuration
 training:

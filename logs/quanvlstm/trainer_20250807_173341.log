@@ -1,0 +1,20 @@
+2025-08-07 17:33:41,594 - trainer - INFO - Starting training for 10 epochs...
+2025-08-07 17:36:56,248 - trainer - INFO - Epoch 1 / 10 - Train Loss: 0.7655 - val_loss: 0.6803
+2025-08-07 17:36:56,308 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.6803211184839407}[0m
+2025-08-07 17:39:58,781 - trainer - INFO - Epoch 2 / 10 - Train Loss: 0.6196 - val_loss: 0.6289
+2025-08-07 17:39:58,844 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.628878334019747}[0m
+2025-08-07 17:42:55,215 - trainer - INFO - Epoch 3 / 10 - Train Loss: 0.5899 - val_loss: 0.6134
+2025-08-07 17:42:55,267 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.6133507417721881}[0m
+2025-08-07 17:45:54,794 - trainer - INFO - Epoch 4 / 10 - Train Loss: 0.5773 - val_loss: 0.5945
+2025-08-07 17:45:54,848 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.5945413756287761}[0m
+2025-08-07 17:48:57,514 - trainer - INFO - Epoch 5 / 10 - Train Loss: 0.5704 - val_loss: 0.5848
+2025-08-07 17:48:57,568 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.5847661972252859}[0m
+2025-08-07 17:51:57,820 - trainer - INFO - Epoch 6 / 10 - Train Loss: 0.5549 - val_loss: 0.5798
+2025-08-07 17:51:57,876 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.5798462144513097}[0m
+2025-08-07 17:54:56,066 - trainer - INFO - Epoch 7 / 10 - Train Loss: 0.5376 - val_loss: 0.6024
+2025-08-07 17:57:49,690 - trainer - INFO - Epoch 8 / 10 - Train Loss: 0.5339 - val_loss: 0.5798
+2025-08-07 17:57:49,746 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.5797821558598015}[0m
+2025-08-07 18:01:04,358 - trainer - INFO - Epoch 9 / 10 - Train Loss: 0.5291 - val_loss: 0.5725
+2025-08-07 18:01:04,417 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.57253994497781}[0m
+2025-08-07 18:04:44,170 - trainer - INFO - Epoch 10 / 10 - Train Loss: 0.5188 - val_loss: 0.5868
+2025-08-07 18:04:44,200 - trainer - INFO - Training completed in 1862.61 seconds.

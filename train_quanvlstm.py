@@ -4,7 +4,9 @@ from models.quanvlstm.quanvlstm_model import QuanvLSTMModel
 from datasets.dataset import create_dataloaders_with_normalization
 from utils.trainer import Trainer
 from utils.optimizer import get_optimizer, get_scheduler
+from utils.get_params import get_params
 from configs.base_config import TrainingConfig
+from visualizations.plot_training_history import plot_training_history
 
 
 def main():
@@ -20,11 +22,17 @@ def main():
         T_out=config.model.T_out
     )
 
+    classical_params, quantum_params = get_params(model, has_quantum=True)
+
     optimizer = get_optimizer(
         model, 
         config.optimizer.name, 
-        lr=config.training.learning_rate
+        params_lr=[
+            {"params": classical_params, "lr": config.training.learning_rate, "weight_decay": config.training.weight_decay},
+            {"params": quantum_params, "lr": config.training.quantum_lr, "weight_decay": config.training.quantum_weight_decay}
+        ]
     )
+
     scheduler = get_scheduler(
         optimizer, 
         config.scheduler.name, 
@@ -71,6 +79,9 @@ def main():
         early_stopping_patience=config.training.early_stopping_patience,
         save_every=config.training.save_every,
     )
+
+    trainer.save_training_history(save_path=config.training.checkpoint_path + '/training_history.json')
+    plot_training_history(trainer.get_training_history())
 
 if __name__ == "__main__":
     main()

@@ -1,10 +1,8 @@
-import torch
-import torch.nn as nn
 from torch.optim import SGD, Adam, AdamW
 from torch.optim.lr_scheduler import StepLR, CosineAnnealingLR, ReduceLROnPlateau
 
 
-def get_optimizer(model, name="adam", lr=1e-3, weight_decay=0.0, momentum=0.9):
+def get_optimizer(model, name="adam", params_lr=[], weight_decay=0.0, momentum=0.9):
     """
     Get optimizer for the model.
     
@@ -15,11 +13,11 @@ def get_optimizer(model, name="adam", lr=1e-3, weight_decay=0.0, momentum=0.9):
     name = name.lower()
     
     if name == "adam":
-        return Adam(model.parameters(), lr=lr, weight_decay=weight_decay)
+        return Adam(params_lr)
     elif name == "adamw":
-        return AdamW(model.parameters(), lr=lr, weight_decay=weight_decay)
+        return AdamW(params_lr)
     elif name == "sgd":
-        return SGD(model.parameters(), lr=lr, weight_decay=weight_decay, momentum=momentum)
+        return SGD(params_lr, momentum=momentum)
     else:
         raise ValueError(f"Unsupported optimizer: {name}")
 

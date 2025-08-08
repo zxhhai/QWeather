@@ -4,6 +4,7 @@ from models.convlstm.convlstm_model import ConvLSTMModel
 from datasets.dataset import create_dataloaders_with_normalization
 from utils.trainer import Trainer
 from utils.optimizer import get_optimizer, get_scheduler
+from utils.get_params import get_params
 from configs.base_config import TrainingConfig
 from visualizations.plot_training_history import plot_training_history
 
@@ -20,11 +21,16 @@ def main():
         T_out=config.model.T_out
     )
 
+    classical_params = get_params(model, has_quantum=False)
+
     optimizer = get_optimizer(
         model, 
         config.optimizer.name, 
-        lr=config.training.learning_rate
+        params_lr=[
+            {"params": classical_params, "lr": config.training.learning_rate, "weight_decay": config.training.weight_decay}
+        ]
     )
+
     scheduler = get_scheduler(
         optimizer, 
         config.scheduler.name, 

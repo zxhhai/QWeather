@@ -88,12 +88,7 @@ class WeatherDataset(Dataset):
             self.normalize = False
         
         print(f"WeatherDataset initialized with {source_info}")
-        print(f"  Data shape: {dict(self.ds.sizes)}")
-        print(f"  Variables: {self.var_name}")
-        print(f"  Sequence length: {self.input_seq_len} + {self.target_seq_len}")
-        print(f"  Normalization: {'Enabled' if self.normalize else 'Disabled'}")
-        if len(self.indices) > 0:
-            print(f"  Index range: {self.indices.min()} - {self.indices.max()}")
+
     
     def _fit_scaler(self, scaler_type='standard', sample_size=100):
         """训练scaler"""
@@ -135,13 +130,13 @@ class WeatherDataset(Dataset):
         all_data = np.concatenate(all_data, axis=0)  # [samples, channels]
         self.scaler.fit(all_data)
         
-        print(f"Scaler fitted on {all_data.shape[0]} samples")
-        if scaler_type == 'standard':
-            print(f"  Mean: {self.scaler.mean_}")
-            print(f"  Scale: {self.scaler.scale_}")
-        else:
-            print(f"  Min: {self.scaler.data_min_}")
-            print(f"  Max: {self.scaler.data_max_}")
+        # print(f"Scaler fitted on {all_data.shape[0]} samples")
+        # if scaler_type == 'standard':
+            # print(f"  Mean: {self.scaler.mean_}")
+            # print(f"  Scale: {self.scaler.scale_}")
+        # else:
+            # print(f"  Min: {self.scaler.data_min_}")
+            # print(f"  Max: {self.scaler.data_max_}")
     
     def get_scaler(self):
         """获取scaler对象"""
@@ -152,7 +147,7 @@ class WeatherDataset(Dataset):
         if self.scaler:
             with open(save_path, 'wb') as f:
                 pickle.dump(self.scaler, f)
-            print(f"Scaler saved to {save_path}")
+            #print(f"Scaler saved to {save_path}")
     
     @staticmethod
     def load_scaler(load_path):

@@ -1,0 +1,7 @@
+2025-08-08 16:34:24,395 - trainer - INFO - Starting training for 10 epochs...
+2025-08-08 16:45:59,901 - trainer - INFO - Epoch 1 / 10 - Train Loss: 0.7621 - val_loss: 0.6757
+2025-08-08 16:46:00,031 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.675720224984818}[0m
+2025-08-08 16:57:43,361 - trainer - INFO - Epoch 2 / 10 - Train Loss: 0.6342 - val_loss: 0.6380
+2025-08-08 16:57:43,478 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.6379722479937805}[0m
+2025-08-08 17:11:45,009 - trainer - INFO - Epoch 3 / 10 - Train Loss: 0.5881 - val_loss: 0.5874
+2025-08-08 17:11:45,177 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.5874358403186003}[0m
