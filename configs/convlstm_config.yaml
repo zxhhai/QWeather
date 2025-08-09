@@ -1,8 +1,8 @@
 # ConvLSTM model configuration
 model:
   name: "convlstm"
-  input_dim: 8
-  output_dim: 8
+  input_dim: 10
+  output_dim: 10
   T_out: 1
   num_layers: 2
   hidden_dim_list: [16, 32]
@@ -10,7 +10,7 @@ model:
 
 # Training configuration
 training:
-  epochs: 10
+  epochs: 100
   batch_size: 4
   learning_rate: 0.001
   weight_decay: 0.0001
@@ -35,14 +35,14 @@ scheduler:
 
 # Data configuration
 data:
-  file_path: "/home/zxh/CQ/dataset/data_small.nc" # path to the dataset file
-  var_name: ["CHLA", "PAR", "SST", "sla", "tco", "HCHO", "windspeed", "isoprene"]
-  input_seq_len: 8
+  file_path: "/home/zxh/CQ/dataset/all_dataset.nc" # path to the dataset file
+  var_name: ["chla", "hcho", "no2", "o3", "par", "sla", "sst", "wind", "DML", "isoprene"]
+  input_seq_len:  6 
   target_seq_len: 1
   train_ratio: 0.7
   val_ratio: 0.2
   test_ratio: 0.1
-  indices_dir: "/home/zxh/CQ/QWeather/datasets/split/small" # path to indices directory
+  indices_dir: "/home/zxh/CQ/QWeather/datasets/split/large" # path to indices directory
   shuffle: true
   num_workers: 4
   normalize: true
