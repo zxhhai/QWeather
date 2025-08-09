@@ -1,0 +1,158 @@
+2025-08-09 20:58:34,021 - trainer - INFO - Starting training for 100 epochs...
+2025-08-09 20:58:51,560 - trainer - INFO - Epoch 1 / 100 - Train Loss: 0.7531 - val_loss: 0.6455
+2025-08-09 20:58:51,569 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.6455377817153931}[0m
+2025-08-09 20:59:08,815 - trainer - INFO - Epoch 2 / 100 - Train Loss: 0.5878 - val_loss: 0.5264
+2025-08-09 20:59:08,821 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.526387894153595}[0m
+2025-08-09 20:59:25,667 - trainer - INFO - Epoch 3 / 100 - Train Loss: 0.5157 - val_loss: 0.4807
+2025-08-09 20:59:25,678 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.48074146509170534}[0m
+2025-08-09 20:59:41,813 - trainer - INFO - Epoch 4 / 100 - Train Loss: 0.4789 - val_loss: 0.4500
+2025-08-09 20:59:41,819 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.44995884895324706}[0m
+2025-08-09 20:59:59,037 - trainer - INFO - Epoch 5 / 100 - Train Loss: 0.4495 - val_loss: 0.4277
+2025-08-09 20:59:59,043 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.4276631474494934}[0m
+2025-08-09 21:00:16,099 - trainer - INFO - Epoch 6 / 100 - Train Loss: 0.4257 - val_loss: 0.4042
+2025-08-09 21:00:16,108 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.4042213559150696}[0m
+2025-08-09 21:00:32,877 - trainer - INFO - Epoch 7 / 100 - Train Loss: 0.4064 - val_loss: 0.3869
+2025-08-09 21:00:32,884 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.3869142472743988}[0m
+2025-08-09 21:00:49,698 - trainer - INFO - Epoch 8 / 100 - Train Loss: 0.3886 - val_loss: 0.3700
+2025-08-09 21:00:49,704 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.3700451016426086}[0m
+2025-08-09 21:01:07,259 - trainer - INFO - Epoch 9 / 100 - Train Loss: 0.3748 - val_loss: 0.3568
+2025-08-09 21:01:07,266 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.35682774186134336}[0m
+2025-08-09 21:01:24,577 - trainer - INFO - Epoch 10 / 100 - Train Loss: 0.3620 - val_loss: 0.3469
+2025-08-09 21:01:24,583 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.34688432812690734}[0m
+2025-08-09 21:01:42,475 - trainer - INFO - Epoch 11 / 100 - Train Loss: 0.3535 - val_loss: 0.3439
+2025-08-09 21:01:42,481 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.3439080357551575}[0m
+2025-08-09 21:01:59,954 - trainer - INFO - Epoch 12 / 100 - Train Loss: 0.3476 - val_loss: 0.3352
+2025-08-09 21:01:59,960 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.3351689279079437}[0m
+2025-08-09 21:02:17,452 - trainer - INFO - Epoch 13 / 100 - Train Loss: 0.3417 - val_loss: 0.3302
+2025-08-09 21:02:17,459 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.3301567494869232}[0m
+2025-08-09 21:02:34,988 - trainer - INFO - Epoch 14 / 100 - Train Loss: 0.3382 - val_loss: 0.3252
+2025-08-09 21:02:34,999 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.32523042559623716}[0m
+2025-08-09 21:02:52,783 - trainer - INFO - Epoch 15 / 100 - Train Loss: 0.3361 - val_loss: 0.3239
+2025-08-09 21:02:52,792 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.32394798994064333}[0m
+2025-08-09 21:03:09,454 - trainer - INFO - Epoch 16 / 100 - Train Loss: 0.3318 - val_loss: 0.3213
+2025-08-09 21:03:09,461 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.321288001537323}[0m
+2025-08-09 21:03:25,896 - trainer - INFO - Epoch 17 / 100 - Train Loss: 0.3309 - val_loss: 0.3182
+2025-08-09 21:03:25,902 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.3181516110897064}[0m
+2025-08-09 21:03:43,539 - trainer - INFO - Epoch 18 / 100 - Train Loss: 0.3283 - val_loss: 0.3190
+2025-08-09 21:04:00,898 - trainer - INFO - Epoch 19 / 100 - Train Loss: 0.3255 - val_loss: 0.3150
+2025-08-09 21:04:00,905 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.31495338678359985}[0m
+2025-08-09 21:04:17,789 - trainer - INFO - Epoch 20 / 100 - Train Loss: 0.3238 - val_loss: 0.3143
+2025-08-09 21:04:17,796 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.31429983377456666}[0m
+2025-08-09 21:04:35,580 - trainer - INFO - Epoch 21 / 100 - Train Loss: 0.3226 - val_loss: 0.3116
+2025-08-09 21:04:35,590 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.3116434395313263}[0m
+2025-08-09 21:04:52,755 - trainer - INFO - Epoch 22 / 100 - Train Loss: 0.3201 - val_loss: 0.3096
+2025-08-09 21:04:52,762 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.3095903217792511}[0m
+2025-08-09 21:05:10,251 - trainer - INFO - Epoch 23 / 100 - Train Loss: 0.3190 - val_loss: 0.3090
+2025-08-09 21:05:10,258 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.3089859545230865}[0m
+2025-08-09 21:05:28,095 - trainer - INFO - Epoch 24 / 100 - Train Loss: 0.3185 - val_loss: 0.3057
+2025-08-09 21:05:28,102 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.30569023489952085}[0m
+2025-08-09 21:05:44,719 - trainer - INFO - Epoch 25 / 100 - Train Loss: 0.3164 - val_loss: 0.3049
+2025-08-09 21:05:44,725 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.30492154955863954}[0m
+2025-08-09 21:06:01,166 - trainer - INFO - Epoch 26 / 100 - Train Loss: 0.3149 - val_loss: 0.3066
+2025-08-09 21:06:19,909 - trainer - INFO - Epoch 27 / 100 - Train Loss: 0.3138 - val_loss: 0.3043
+2025-08-09 21:06:19,915 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.3042631268501282}[0m
+2025-08-09 21:06:38,338 - trainer - INFO - Epoch 28 / 100 - Train Loss: 0.3134 - val_loss: 0.3025
+2025-08-09 21:06:38,344 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.3024939835071564}[0m
+2025-08-09 21:06:55,670 - trainer - INFO - Epoch 29 / 100 - Train Loss: 0.3120 - val_loss: 0.3032
+2025-08-09 21:07:12,940 - trainer - INFO - Epoch 30 / 100 - Train Loss: 0.3102 - val_loss: 0.3014
+2025-08-09 21:07:12,948 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.3013867974281311}[0m
+2025-08-09 21:07:30,598 - trainer - INFO - Epoch 31 / 100 - Train Loss: 0.3086 - val_loss: 0.2989
+2025-08-09 21:07:30,606 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.29894799590110777}[0m
+2025-08-09 21:07:46,943 - trainer - INFO - Epoch 32 / 100 - Train Loss: 0.3072 - val_loss: 0.2987
+2025-08-09 21:07:46,949 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.29872140288352966}[0m
+2025-08-09 21:08:03,371 - trainer - INFO - Epoch 33 / 100 - Train Loss: 0.3067 - val_loss: 0.2987
+2025-08-09 21:08:03,377 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.29867043495178225}[0m
+2025-08-09 21:08:20,282 - trainer - INFO - Epoch 34 / 100 - Train Loss: 0.3073 - val_loss: 0.2984
+2025-08-09 21:08:20,291 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.29843016266822814}[0m
+2025-08-09 21:08:36,958 - trainer - INFO - Epoch 35 / 100 - Train Loss: 0.3064 - val_loss: 0.2984
+2025-08-09 21:08:36,964 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.29839041233062746}[0m
+2025-08-09 21:08:53,238 - trainer - INFO - Epoch 36 / 100 - Train Loss: 0.3074 - val_loss: 0.2984
+2025-08-09 21:09:09,440 - trainer - INFO - Epoch 37 / 100 - Train Loss: 0.3065 - val_loss: 0.2982
+2025-08-09 21:09:09,446 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.29816508293151855}[0m
+2025-08-09 21:09:25,760 - trainer - INFO - Epoch 38 / 100 - Train Loss: 0.3061 - val_loss: 0.2982
+2025-08-09 21:09:25,766 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.29815065264701845}[0m
+2025-08-09 21:09:42,683 - trainer - INFO - Epoch 39 / 100 - Train Loss: 0.3065 - val_loss: 0.2980
+2025-08-09 21:09:42,693 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.2980321705341339}[0m
+2025-08-09 21:09:59,178 - trainer - INFO - Epoch 40 / 100 - Train Loss: 0.3058 - val_loss: 0.2980
+2025-08-09 21:09:59,186 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.2979829967021942}[0m
+2025-08-09 21:10:16,633 - trainer - INFO - Epoch 41 / 100 - Train Loss: 0.3056 - val_loss: 0.2980
+2025-08-09 21:10:16,640 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.297969788312912}[0m
+2025-08-09 21:10:34,017 - trainer - INFO - Epoch 42 / 100 - Train Loss: 0.3058 - val_loss: 0.2979
+2025-08-09 21:10:34,023 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.29788742065429685}[0m
+2025-08-09 21:10:50,077 - trainer - INFO - Epoch 43 / 100 - Train Loss: 0.3061 - val_loss: 0.2977
+2025-08-09 21:10:50,083 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.2977037370204926}[0m
+2025-08-09 21:11:06,294 - trainer - INFO - Epoch 44 / 100 - Train Loss: 0.3058 - val_loss: 0.2976
+2025-08-09 21:11:06,300 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.29758402705192566}[0m
+2025-08-09 21:11:23,380 - trainer - INFO - Epoch 45 / 100 - Train Loss: 0.3064 - val_loss: 0.2973
+2025-08-09 21:11:23,386 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.2973052144050598}[0m
+2025-08-09 21:11:40,411 - trainer - INFO - Epoch 46 / 100 - Train Loss: 0.3054 - val_loss: 0.2980
+2025-08-09 21:11:56,707 - trainer - INFO - Epoch 47 / 100 - Train Loss: 0.3056 - val_loss: 0.2975
+2025-08-09 21:12:13,282 - trainer - INFO - Epoch 48 / 100 - Train Loss: 0.3056 - val_loss: 0.2973
+2025-08-09 21:12:13,288 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.2972740411758423}[0m
+2025-08-09 21:12:30,102 - trainer - INFO - Epoch 49 / 100 - Train Loss: 0.3060 - val_loss: 0.2973
+2025-08-09 21:12:45,787 - trainer - INFO - Epoch 50 / 100 - Train Loss: 0.3053 - val_loss: 0.2972
+2025-08-09 21:12:45,794 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.2972362697124481}[0m
+2025-08-09 21:13:02,831 - trainer - INFO - Epoch 51 / 100 - Train Loss: 0.3050 - val_loss: 0.2971
+2025-08-09 21:13:02,837 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.29711285829544065}[0m
+2025-08-09 21:13:20,364 - trainer - INFO - Epoch 52 / 100 - Train Loss: 0.3047 - val_loss: 0.2970
+2025-08-09 21:13:20,371 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.2970268428325653}[0m
+2025-08-09 21:13:37,684 - trainer - INFO - Epoch 53 / 100 - Train Loss: 0.3044 - val_loss: 0.2969
+2025-08-09 21:13:37,695 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.29690058827400206}[0m
+2025-08-09 21:13:54,553 - trainer - INFO - Epoch 54 / 100 - Train Loss: 0.3041 - val_loss: 0.2971
+2025-08-09 21:14:11,596 - trainer - INFO - Epoch 55 / 100 - Train Loss: 0.3051 - val_loss: 0.2964
+2025-08-09 21:14:11,603 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.29640270471572877}[0m
+2025-08-09 21:14:27,579 - trainer - INFO - Epoch 56 / 100 - Train Loss: 0.3056 - val_loss: 0.2970
+2025-08-09 21:14:43,729 - trainer - INFO - Epoch 57 / 100 - Train Loss: 0.3037 - val_loss: 0.2968
+2025-08-09 21:14:59,474 - trainer - INFO - Epoch 58 / 100 - Train Loss: 0.3039 - val_loss: 0.2965
+2025-08-09 21:15:16,117 - trainer - INFO - Epoch 59 / 100 - Train Loss: 0.3048 - val_loss: 0.2965
+2025-08-09 21:15:32,556 - trainer - INFO - Epoch 60 / 100 - Train Loss: 0.3043 - val_loss: 0.2962
+2025-08-09 21:15:32,563 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.2961985349655151}[0m
+2025-08-09 21:15:48,563 - trainer - INFO - Epoch 61 / 100 - Train Loss: 0.3039 - val_loss: 0.2962
+2025-08-09 21:16:04,817 - trainer - INFO - Epoch 62 / 100 - Train Loss: 0.3029 - val_loss: 0.2962
+2025-08-09 21:16:21,131 - trainer - INFO - Epoch 63 / 100 - Train Loss: 0.3038 - val_loss: 0.2962
+2025-08-09 21:16:38,665 - trainer - INFO - Epoch 64 / 100 - Train Loss: 0.3032 - val_loss: 0.2963
+2025-08-09 21:16:56,096 - trainer - INFO - Epoch 65 / 100 - Train Loss: 0.3036 - val_loss: 0.2962
+2025-08-09 21:17:12,943 - trainer - INFO - Epoch 66 / 100 - Train Loss: 0.3050 - val_loss: 0.2963
+2025-08-09 21:17:29,871 - trainer - INFO - Epoch 67 / 100 - Train Loss: 0.3043 - val_loss: 0.2963
+2025-08-09 21:17:46,694 - trainer - INFO - Epoch 68 / 100 - Train Loss: 0.3055 - val_loss: 0.2962
+2025-08-09 21:18:02,434 - trainer - INFO - Epoch 69 / 100 - Train Loss: 0.3028 - val_loss: 0.2962
+2025-08-09 21:18:18,439 - trainer - INFO - Epoch 70 / 100 - Train Loss: 0.3033 - val_loss: 0.2962
+2025-08-09 21:18:34,886 - trainer - INFO - Epoch 71 / 100 - Train Loss: 0.3034 - val_loss: 0.2962
+2025-08-09 21:18:51,077 - trainer - INFO - Epoch 72 / 100 - Train Loss: 0.3042 - val_loss: 0.2962
+2025-08-09 21:18:51,083 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.29617520570755007}[0m
+2025-08-09 21:19:07,013 - trainer - INFO - Epoch 73 / 100 - Train Loss: 0.3045 - val_loss: 0.2962
+2025-08-09 21:19:23,063 - trainer - INFO - Epoch 74 / 100 - Train Loss: 0.3030 - val_loss: 0.2962
+2025-08-09 21:19:38,958 - trainer - INFO - Epoch 75 / 100 - Train Loss: 0.3035 - val_loss: 0.2962
+2025-08-09 21:19:54,965 - trainer - INFO - Epoch 76 / 100 - Train Loss: 0.3042 - val_loss: 0.2962
+2025-08-09 21:20:11,465 - trainer - INFO - Epoch 77 / 100 - Train Loss: 0.3026 - val_loss: 0.2962
+2025-08-09 21:20:28,634 - trainer - INFO - Epoch 78 / 100 - Train Loss: 0.3034 - val_loss: 0.2962
+2025-08-09 21:20:46,067 - trainer - INFO - Epoch 79 / 100 - Train Loss: 0.3034 - val_loss: 0.2961
+2025-08-09 21:20:46,077 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.29614328145980834}[0m
+2025-08-09 21:21:03,560 - trainer - INFO - Epoch 80 / 100 - Train Loss: 0.3030 - val_loss: 0.2962
+2025-08-09 21:21:20,728 - trainer - INFO - Epoch 81 / 100 - Train Loss: 0.3046 - val_loss: 0.2961
+2025-08-09 21:21:20,734 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.2961265861988068}[0m
+2025-08-09 21:21:37,337 - trainer - INFO - Epoch 82 / 100 - Train Loss: 0.3035 - val_loss: 0.2961
+2025-08-09 21:21:37,343 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.29611175656318667}[0m
+2025-08-09 21:21:54,741 - trainer - INFO - Epoch 83 / 100 - Train Loss: 0.3035 - val_loss: 0.2961
+2025-08-09 21:22:12,003 - trainer - INFO - Epoch 84 / 100 - Train Loss: 0.3036 - val_loss: 0.2961
+2025-08-09 21:22:29,251 - trainer - INFO - Epoch 85 / 100 - Train Loss: 0.3036 - val_loss: 0.2961
+2025-08-09 21:22:29,257 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.29607300758361815}[0m
+2025-08-09 21:22:46,848 - trainer - INFO - Epoch 86 / 100 - Train Loss: 0.3041 - val_loss: 0.2961
+2025-08-09 21:22:46,855 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.29606651663780215}[0m
+2025-08-09 21:23:04,025 - trainer - INFO - Epoch 87 / 100 - Train Loss: 0.3044 - val_loss: 0.2961
+2025-08-09 21:23:20,147 - trainer - INFO - Epoch 88 / 100 - Train Loss: 0.3039 - val_loss: 0.2961
+2025-08-09 21:23:36,196 - trainer - INFO - Epoch 89 / 100 - Train Loss: 0.3046 - val_loss: 0.2960
+2025-08-09 21:23:36,202 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.29602372646331787}[0m
+2025-08-09 21:23:52,324 - trainer - INFO - Epoch 90 / 100 - Train Loss: 0.3038 - val_loss: 0.2961
+2025-08-09 21:24:08,159 - trainer - INFO - Epoch 91 / 100 - Train Loss: 0.3039 - val_loss: 0.2961
+2025-08-09 21:24:24,290 - trainer - INFO - Epoch 92 / 100 - Train Loss: 0.3034 - val_loss: 0.2961
+2025-08-09 21:24:40,517 - trainer - INFO - Epoch 93 / 100 - Train Loss: 0.3033 - val_loss: 0.2961
+2025-08-09 21:24:58,087 - trainer - INFO - Epoch 94 / 100 - Train Loss: 0.3031 - val_loss: 0.2961
+2025-08-09 21:25:15,218 - trainer - INFO - Epoch 95 / 100 - Train Loss: 0.3029 - val_loss: 0.2961
+2025-08-09 21:25:32,384 - trainer - INFO - Epoch 96 / 100 - Train Loss: 0.3037 - val_loss: 0.2961
+2025-08-09 21:25:49,669 - trainer - INFO - Epoch 97 / 100 - Train Loss: 0.3032 - val_loss: 0.2961
+2025-08-09 21:26:06,314 - trainer - INFO - Epoch 98 / 100 - Train Loss: 0.3040 - val_loss: 0.2961
+2025-08-09 21:26:22,979 - trainer - INFO - Epoch 99 / 100 - Train Loss: 0.3040 - val_loss: 0.2961
+2025-08-09 21:26:40,575 - trainer - INFO - Epoch 100 / 100 - Train Loss: 0.3029 - val_loss: 0.2961
+2025-08-09 21:26:40,579 - trainer - INFO - Training completed in 1686.56 seconds.
+2025-08-09 21:26:40,582 - trainer - INFO - Training history saved to ./checkpoints/convlstm/training_history.json

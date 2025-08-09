@@ -23,10 +23,10 @@ class QuantumConv(nn.Module):
         self.q_layer = U3CU3Layer0(self.arch)
 
         self.measure_z = tq.MeasureAll(tq.PauliZ)
-        #self.measure_x = tq.MeasureAll(tq.PauliX)
-        #self.measure_y = tq.MeasureAll(tq.PauliY)
+        self.measure_x = tq.MeasureAll(tq.PauliX)
+        self.measure_y = tq.MeasureAll(tq.PauliY)
 
-        self.fc_out = nn.Linear(n_qubits, out_channels)
+        self.fc_out = nn.Linear(3 * n_qubits, out_channels)
 
     def forward(self, x):
         B, C, H, W = x.shape
@@ -38,11 +38,11 @@ class QuantumConv(nn.Module):
         self.encoder(qdev, x)
         self.q_layer(qdev)
 
-        measured = self.measure_z(qdev)  # [B*H*W, n_qubits]
-        #mx = self.measure_x(qdev)
-        #my = self.measure_y(qdev)
+        mz = self.measure_z(qdev)  # [B*H*W, n_qubits]
+        mx = self.measure_x(qdev)
+        my = self.measure_y(qdev)
 
-        # measured = torch.cat([mz, mx, my], dim=1)  # [B*H*W, n_qubits*3]
+        measured = torch.cat([mz, mx, my], dim=1)  # [B*H*W, n_qubits*3]
 
         out = self.fc_out(measured)
         out = out.view(B, H, W, self.out_channels).permute(0, 3, 1, 2)

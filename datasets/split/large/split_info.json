@@ -1,5 +1,5 @@
 {
-  "data_file": "/home/zxh/CQ/dataset/all_dataset.nc",
+  "data_file": "/root/autodl-tmp/all_dataset.nc",
   "total_sequences": 85,
   "input_seq_len": 6,
   "target_seq_len": 1,

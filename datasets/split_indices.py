@@ -31,8 +31,8 @@ def create_split_indices(data_file, output_dir, train_ratio=0.7, val_ratio=0.2, 
     
     # 生成所有索引并随机打乱
     all_indices = np.arange(total_sequences)
-    #np.random.seed(seed)
-    #np.random.shuffle(all_indices)
+    np.random.seed(seed)
+    np.random.shuffle(all_indices)
     
     # 计算划分点
     train_end = int(total_sequences * train_ratio)
@@ -230,8 +230,8 @@ def show_split_info(indices_dir):
 
 if __name__ == "__main__":
     # 示例用法
-    data_file = "/home/zxh/CQ/dataset/all_dataset.nc"
-    output_dir = "split/large"
+    data_file = "/root/autodl-tmp/data_small.nc"
+    output_dir = "split/small"
     
     print("Creating split indices...")
     splits = create_split_indices(

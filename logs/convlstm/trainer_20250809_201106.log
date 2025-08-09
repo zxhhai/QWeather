@@ -1,0 +1,7 @@
+2025-08-09 20:11:06,101 - trainer - INFO - Starting training for 2 epochs...
+2025-08-09 20:11:26,081 - trainer - INFO - Epoch 1 / 2 - Train Loss: 0.6906 - val_loss: 0.6150
+2025-08-09 20:11:26,094 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.6150107502937316}[0m
+2025-08-09 20:11:45,490 - trainer - INFO - Epoch 2 / 2 - Train Loss: 0.5216 - val_loss: 0.5421
+2025-08-09 20:11:45,503 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.542071545124054}[0m
+2025-08-09 20:11:45,503 - trainer - INFO - Training completed in 39.40 seconds.
+2025-08-09 20:11:45,510 - trainer - INFO - Training history saved to ./checkpoints/convlstm/training_history.json
