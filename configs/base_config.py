@@ -4,11 +4,9 @@ from typing import Dict, Any
 
 
 class AttrDict(dict):
-    """字典的属性访问版本，支持嵌套"""
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # 递归转换所有嵌套字典为AttrDict
         for key, value in self.items():
             if isinstance(value, dict) and not isinstance(value, AttrDict):
                 self[key] = AttrDict(value)
@@ -16,7 +14,6 @@ class AttrDict(dict):
                 self[key] = self._convert_list(value)
     
     def _convert_list(self, lst):
-        """递归转换列表中的字典"""
         new_list = []
         for item in lst:
             if isinstance(item, dict) and not isinstance(item, AttrDict):
@@ -33,7 +30,6 @@ class AttrDict(dict):
         except KeyError:
             raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{item}'")
         
-        # 确保返回的字典也是AttrDict
         if isinstance(value, dict) and not isinstance(value, AttrDict):
             value = AttrDict(value)
             self[item] = value
@@ -41,7 +37,6 @@ class AttrDict(dict):
         return value
 
     def __setattr__(self, key, value):
-        # 如果设置的是字典，转换为AttrDict
         if isinstance(value, dict) and not isinstance(value, AttrDict):
             value = AttrDict(value)
         self[key] = value
@@ -78,7 +73,6 @@ class BaseConfig:
         """Load configuration from YAML file"""
         with open(config_path, 'r', encoding='utf-8') as f:
             data = yaml.safe_load(f)
-        # 确保完全转换为AttrDict
         self.config = AttrDict(data) if data else AttrDict()
 
     def save_to_yaml(self, config_path: str):
@@ -108,9 +102,7 @@ class BaseConfig:
             config = config[k]
         config[keys[-1]] = value
 
-    # 添加直接属性访问支持
     def __getattr__(self, item):
-        """支持 config.model 这样的访问方式"""
         if item == 'config':
             return object.__getattribute__(self, 'config')
         try:
@@ -119,14 +111,12 @@ class BaseConfig:
             raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{item}'")
 
     def __setattr__(self, key, value):
-        """支持 config.model = {...} 这样的设置方式"""
         if key == 'config':
             object.__setattr__(self, key, value)
         else:
             if not hasattr(self, 'config'):
                 object.__setattr__(self, key, value)
             else:
-                # 确保设置的字典值也转换为AttrDict
                 if isinstance(value, dict) and not isinstance(value, AttrDict):
                     value = AttrDict(value)
                 self.config[key] = value
@@ -188,17 +178,14 @@ class TrainingConfig(BaseConfig):
             if key not in self.config:
                 self.config[key] = AttrDict(value)
             else:
-                # 递归补全缺失的默认值
                 self._fill_defaults(self.config[key], value)
         
-        # 转换 kernel_size_list 为 tuple 列表
         if hasattr(self.config.model, 'kernel_size_list'):
             self.config.model.kernel_size_list = [
                 tuple(x) for x in self.config.model.kernel_size_list
             ]
 
     def _fill_defaults(self, current, defaults):
-        """递归填充默认值，确保所有字典都是AttrDict"""
         for k, v in defaults.items():
             if k not in current:
                 if isinstance(v, dict):
@@ -206,7 +193,6 @@ class TrainingConfig(BaseConfig):
                 else:
                     current[k] = v
             elif isinstance(v, dict) and isinstance(current[k], dict):
-                # 确保当前值也是AttrDict
                 if not isinstance(current[k], AttrDict):
                     current[k] = AttrDict(current[k])
                 self._fill_defaults(current[k], v)

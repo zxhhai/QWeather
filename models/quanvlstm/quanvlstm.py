@@ -9,66 +9,6 @@ from torchquantum.layer import U3CU3Layer0
 
 
 class QuantumConv(nn.Module):
-    def __init__(self, in_channels, out_channels, patch_size=3, stride=1, padding=None, n_qubits=4):
-        super().__init__()
-        self.in_channels = in_channels
-        self.out_channels = out_channels
-        self.patch_size = patch_size
-        self.stride = stride
-        self.padding = padding if padding is not None else patch_size // 2
-        self.n_qubits = n_qubits
-
-        self.encoder = tq.GeneralEncoder(
-            [
-                {"input_idx": [i], "func": "ry", "wires": [i]} for i in range(self.n_qubits)
-            ]
-        )
-        self.arch = {"n_wires": self.n_qubits, "n_blocks": 1, "n_layers_per_block": 2} # rx ry rz CONT xx yy zz
-        self.q_layer = U3CU3Layer0(self.arch)
-        self.measure = tq.MeasureAll(tq.PauliZ)
-        
-        self.fc1 = nn.Linear(in_channels * patch_size * patch_size, n_qubits)
-        self.fc = nn.Linear(n_qubits, out_channels)
-
-    def forward(self, x):
-        B, C, H, W = x.shape
-        qdev = tq.QuantumDevice(n_wires=self.n_qubits, bsz=B, device=x.device)
-
-        x = F.pad(x, (self.padding, self.padding, self.padding, self.padding), mode='constant', value=0)
-        H_pad, W_pad = x.shape[2], x.shape[3]
-
-        out = []
-
-        for i in range(0, H_pad - self.patch_size + 1, self.stride):
-            for j in range(0, W_pad - self.patch_size + 1, self.stride):
-                patch = x[:, :, i:i + self.patch_size, j:j + self.patch_size]
-
-                if patch.shape[2] < self.patch_size or patch.shape[3] < self.patch_size:
-                    patch = F.pad(patch, (0, self.patch_size - patch.shape[3], 0, self.patch_size - patch.shape[2]),
-                                    mode='constant', value=0)
-                patch = patch.reshape(B, -1)
-                patch = self.fc1(patch)  # (B, n_qubits)
-
-                if patch.shape[1] < self.n_qubits:
-                    pad_q = torch.zeros(B, self.n_qubits - patch.shape[1], device=patch.device)
-                    patch = torch.cat([patch, pad_q], dim=1)
-                elif patch.shape[1] > self.n_qubits:
-                    patch = patch[:, :self.n_qubits]
-
-                self.encoder(qdev, patch)
-                self.q_layer(qdev)
-                measured = self.measure(qdev)
-
-                out_patch = self.fc(measured)
-                out.append(out_patch)
-        
-        out = torch.stack(out, dim=1)
-        side_h = (H + 2 * self.padding - self.patch_size) // self.stride + 1
-        side_w = (W + 2 * self.padding - self.patch_size) // self.stride + 1
-        out = out.view(B, self.out_channels, side_h, side_w)
-        return out
-
-class QuantumConv2(nn.Module):
     def __init__(self, in_channels, out_channels, n_qubits):
         super().__init__()
         self.in_channels = in_channels
@@ -76,20 +16,16 @@ class QuantumConv2(nn.Module):
         self.n_qubits = n_qubits
 
         self.classical_conv = nn.Conv2d(in_channels, n_qubits, kernel_size=3, stride=1, padding=1)
-
         self.encoder = tq.GeneralEncoder(
             [{"input_idx": [i], "func": "ry", "wires": [i]} for i in range(n_qubits)]
         )
-
         self.arch = {"n_wires": n_qubits, "n_blocks": 5, "n_layers_per_block": 2}
         self.q_layer = U3CU3Layer0(self.arch)
 
-        # 定义多个测量器
         self.measure_z = tq.MeasureAll(tq.PauliZ)
         #self.measure_x = tq.MeasureAll(tq.PauliX)
         #self.measure_y = tq.MeasureAll(tq.PauliY)
 
-        # 输出层输入维度要乘以测量的观测量数量
         self.fc_out = nn.Linear(n_qubits, out_channels)
 
     def forward(self, x):
@@ -102,18 +38,15 @@ class QuantumConv2(nn.Module):
         self.encoder(qdev, x)
         self.q_layer(qdev)
 
-        # 分别测量 Z、X、Y
         measured = self.measure_z(qdev)  # [B*H*W, n_qubits]
         #mx = self.measure_x(qdev)
         #my = self.measure_y(qdev)
 
-        # measured = torch.cat([mz, mx, my], dim=1)  # 拼接成 [B*H*W, n_qubits*3]
+        # measured = torch.cat([mz, mx, my], dim=1)  # [B*H*W, n_qubits*3]
 
         out = self.fc_out(measured)
         out = out.view(B, H, W, self.out_channels).permute(0, 3, 1, 2)
         return out
-
-
 
 
 class QuanvLSTMCell(nn.Module):
@@ -142,11 +75,9 @@ class QuanvLSTMCell(nn.Module):
             bias=True
             )
 
-        self.quanv = QuantumConv2(
+        self.quanv = QuantumConv(
             in_channels=self.input_dim + self.hidden_dim,
             out_channels=self.hidden_dim,
-            #patch_size=self.kernel_size[0],
-            #stride=1,
             n_qubits=self.n_qubits
         )
     

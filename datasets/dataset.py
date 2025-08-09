@@ -23,7 +23,7 @@ def load_indices_from_txt(indices_file):
     with open(indices_file, 'r') as f:
         for line in f:
             line = line.strip()
-            if line:  # 跳过空行
+            if line:
                 indices.append(int(line))
     
     return np.array(indices)
@@ -54,6 +54,7 @@ class WeatherDataset(Dataset):
         self.target_seq_len = target_seq_len
         self.total_seq_len = input_seq_len + target_seq_len
         self.normalize = normalize
+
         self.scaler = scaler
         
         # 确定要使用的索引
@@ -139,11 +140,11 @@ class WeatherDataset(Dataset):
             # print(f"  Max: {self.scaler.data_max_}")
     
     def get_scaler(self):
-        """获取scaler对象"""
         return self.scaler
     
     def save_scaler(self, save_path):
-        """保存scaler"""
+        if not os.path.exists(os.path.dirname(save_path)):
+            os.makedirs(os.path.dirname(save_path))
         if self.scaler:
             with open(save_path, 'wb') as f:
                 pickle.dump(self.scaler, f)
@@ -151,12 +152,10 @@ class WeatherDataset(Dataset):
     
     @staticmethod
     def load_scaler(load_path):
-        """加载scaler"""
         with open(load_path, 'rb') as f:
             return pickle.load(f)
     
     def _normalize_data(self, data):
-        """使用scaler归一化数据"""
         if not self.normalize or self.scaler is None:
             return data
         
@@ -177,11 +176,9 @@ class WeatherDataset(Dataset):
         return data_normalized
     
     def denormalize_data(self, data):
-        """反归一化数据"""
         if not self.normalize or self.scaler is None:
             return data
         
-        # 处理tensor
         if isinstance(data, torch.Tensor):
             data_np = data.cpu().numpy()
             is_tensor = True
@@ -274,24 +271,17 @@ class WeatherDataset(Dataset):
         if hasattr(self, 'ds'):
             self.ds.close()
 
-def create_dataloaders_with_normalization(data_file, indices_dir, var_name, 
-                                        input_seq_len=8, target_seq_len=1,
-                                        batch_size=32, num_workers=4,
-                                        normalize=True, scaler_type='standard', 
-                                        scaler_save_path=None):
-    """
-    创建带归一化的DataLoader（使用sklearn）
-    """
+def create_dataloader(
+    data_file, indices_dir, var_name, split,
+    input_seq_len=8, target_seq_len=1,
+    batch_size=32, num_workers=4,
+    normalize=True, scaler_type='standard',
+    scaler_file='./datasets/scaler.pkl'
+):
     from torch.utils.data import DataLoader
-    
-    dataloaders = {}
-    scaler = None
-    
-    # 1. 创建训练集并训练scaler
-    train_indices_file = os.path.join(indices_dir, 'train_indices.txt')
-    if os.path.exists(train_indices_file):
-        print("Creating training dataset...")
-        train_dataset = WeatherDataset(
+
+    if split == 'train':
+        dataset = WeatherDataset(
             file_path=data_file,
             input_seq_len=input_seq_len,
             target_seq_len=target_seq_len,
@@ -300,98 +290,29 @@ def create_dataloaders_with_normalization(data_file, indices_dir, var_name,
             split='train',
             normalize=normalize,
             scaler_type=scaler_type,
-            fit_scaler=normalize  # 只在训练集训练scaler
+            fit_scaler=normalize
         )
-        
-        # 获取scaler
-        if normalize:
-            scaler = train_dataset.get_scaler()
-            if scaler_save_path:
-                train_dataset.save_scaler(scaler_save_path)
-        
-        train_loader = DataLoader(
-            train_dataset,
-            batch_size=batch_size,
-            shuffle=True,
-            num_workers=num_workers,
-            pin_memory=torch.cuda.is_available()
+        if normalize and scaler_file:
+            dataset.save_scaler(scaler_file)
+    else:
+        scaler = WeatherDataset.load_scaler(scaler_file) if scaler_file else None
+        dataset = WeatherDataset(
+            file_path=data_file,
+            input_seq_len=input_seq_len,
+            target_seq_len=target_seq_len,
+            var_name=var_name,
+            indices_dir=indices_dir,
+            split=split,
+            normalize=normalize,
+            scaler=scaler,
+            fit_scaler=None
         )
-        dataloaders['train'] = train_loader
-        print(f"Created train DataLoader: {len(train_dataset)} samples")
-    
-    # 2. 创建验证集和测试集（使用训练集的scaler）
-    for split in ['val', 'test']:
-        indices_file = os.path.join(indices_dir, f'{split}_indices.txt')
-        
-        if os.path.exists(indices_file):
-            dataset = WeatherDataset(
-                file_path=data_file,
-                input_seq_len=input_seq_len,
-                target_seq_len=target_seq_len,
-                var_name=var_name,
-                indices_dir=indices_dir,
-                split=split,
-                normalize=normalize,
-                scaler=scaler,  # 使用训练集的scaler
-                fit_scaler=False
-            )
-            
-            dataloader = DataLoader(
-                dataset,
-                batch_size=batch_size,
-                shuffle=False,
-                num_workers=num_workers,
-                pin_memory=torch.cuda.is_available()
-            )
-            
-            dataloaders[split] = dataloader
-            print(f"Created {split} DataLoader: {len(dataset)} samples")
-    
-    return dataloaders
 
-# 保持原函数兼容性
-def create_dataloaders_from_indices(data_file, indices_dir, var_name, 
-                                  input_seq_len=8, target_seq_len=1,
-                                  batch_size=32, num_workers=4):
-    """原有函数保持兼容性"""
-    return create_dataloaders_with_normalization(
-        data_file, indices_dir, var_name, input_seq_len, target_seq_len,
-        batch_size, num_workers, normalize=False
+    dataloader = DataLoader(
+        dataset,
+        batch_size=batch_size,
+        shuffle=(split == 'train'),
+        num_workers=num_workers,
+        pin_memory=torch.cuda.is_available()
     )
-
-def test_sklearn_normalization():
-    """测试sklearn归一化功能"""
-    print("="*60)
-    print("Testing Sklearn Normalization")
-    print("="*60)
-    
-    data_file = '/home/zxh/CQ/dataset/data_small.nc'
-    indices_dir = '/home/zxh/CQ/QWeather/datasets/split/small'
-    var_names = ['CHLA', 'PAR', 'SST', 'sla', 'tco', 'HCHO', 'windspeed', 'isoprene']
-    
-    # 测试StandardScaler
-    print("\nTesting StandardScaler...")
-    dataloaders = create_dataloaders_with_normalization(
-        data_file=data_file,
-        indices_dir=indices_dir,
-        var_name=var_names,
-        batch_size=2,
-        num_workers=0,
-        normalize=True,
-        scaler_type='standard',
-        scaler_save_path='standard_scaler.pkl'
-    )
-    
-    if 'train' in dataloaders:
-        train_loader = dataloaders['train']
-        for i, (input_seq, target_seq) in enumerate(train_loader):
-            print(f"Normalized data range: [{input_seq.min():.4f}, {input_seq.max():.4f}]")
-            
-            # 测试反归一化
-            dataset = train_loader.dataset
-            denorm_input = dataset.denormalize_data(input_seq)
-            print(f"Denormalized data range: [{denorm_input.min():.4f}, {denorm_input.max():.4f}]")
-            break
-
-if __name__ == "__main__":
-    test_sklearn_normalization()
+    return dataloader

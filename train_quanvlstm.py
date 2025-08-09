@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 from models.quanvlstm.quanvlstm_model import QuanvLSTMModel
-from datasets.dataset import create_dataloaders_with_normalization
+from datasets.dataset import create_dataloader
 from utils.trainer import Trainer
 from utils.optimizer import get_optimizer, get_scheduler
 from utils.get_params import get_params
@@ -40,36 +40,48 @@ def main():
         gamma=config.scheduler.gamma
     )
 
-    dataloaders = create_dataloaders_with_normalization(
+    train_loader = create_dataloader(
         data_file=config.data.file_path,
         indices_dir=config.data.indices_dir,
         var_name=config.data.var_name,
+        split='train',
         input_seq_len=config.data.input_seq_len,
         target_seq_len=config.data.target_seq_len,
         batch_size=config.training.batch_size,
         num_workers=config.data.num_workers,
         normalize=config.data.normalize,
         scaler_type=config.data.scaler_type,
-        scaler_save_path=config.data.scaler_save_path,
+        scaler_file='./datasets/scaler/quanvlstm_scaler.pkl'
     )
 
-    train_loader = dataloaders['train']
-    val_loader = dataloaders['val']
-
+    val_loader = create_dataloader(
+        data_file=config.data.file_path,
+        indices_dir=config.data.indices_dir,
+        var_name=config.data.var_name,
+        split='val',
+        input_seq_len=config.data.input_seq_len,
+        target_seq_len=config.data.target_seq_len,
+        batch_size=config.training.batch_size,
+        num_workers=config.data.num_workers,
+        normalize=config.data.normalize,
+        scaler_type=config.data.scaler_type,
+        scaler_file='./datasets/scaler/quanvlstm_scaler.pkl'
+    )
+    
     trainer = Trainer(
         model=model,
         criterion=nn.MSELoss(),
         optimizer=optimizer,
         device=torch.device('cuda' if torch.cuda.is_available() else 'cpu'),
         scheduler=scheduler,
-        save_path=config.training.checkpoint_path,
+        save_path="./checkpoints/quanvlstm",
         log_dir=config.logging.log_dir,
         save_logs=config.logging.save_logs
     )
 
     # Load the latest checkpoint
     if config.training.resume:
-        trainer.load_checkpoint(config.training.checkpoint_path + '/latest_checkpoint.pth')
+        trainer.load_checkpoint("./checkpoints/quanvlstm/latest_checkpoint.pth")
 
     # training
     trainer.train(
@@ -80,7 +92,7 @@ def main():
         save_every=config.training.save_every,
     )
 
-    trainer.save_training_history(save_path=config.training.checkpoint_path + '/training_history.json')
+    trainer.save_training_history(save_path="./checkpoints/quanvlstm/training_history.json")
     plot_training_history(trainer.get_training_history())
 
 if __name__ == "__main__":

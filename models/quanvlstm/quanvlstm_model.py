@@ -27,11 +27,10 @@ class QuanvLSTMModel(nn.Module):
             batch_first=True,
             return_all_layers=False
         )
-        # Predictor的hidden_dim应该是最后一层的hidden_dim
         self.predictor = Predictor(hidden_dim_list[-1], output_dim, T_out)
 
     def forward(self, x):
         layer_outputs, last_states = self.quanvlstm(x)
-        last_hidden = last_states[-1][0]  # 取最后一层最后时间步的隐藏状态 (B, hidden_dim, H, W)
-        pred = self.predictor(last_hidden)  # (B, T_out, output_dim, H, W)
+        last_hidden = last_states[-1][0]   # (B, hidden_dim, H, W)
+        pred = self.predictor(last_hidden) # (B, T_out, output_dim, H, W)
         return pred

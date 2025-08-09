@@ -18,7 +18,6 @@ training:
   save_every: 5
   device: "cuda"
   seed: 42
-  checkpoint_path: "./checkpoints/convlstm" # 保存模型检查点的路径
   resume: false
 
 # Optimizer configuration
@@ -36,20 +35,18 @@ scheduler:
 
 # Data configuration
 data:
-  file_path: "/home/zxh/CQ/dataset/data_small.nc" # 更改为数据文件路径
+  file_path: "/home/zxh/CQ/dataset/data_small.nc" # path to the dataset file
   var_name: ["CHLA", "PAR", "SST", "sla", "tco", "HCHO", "windspeed", "isoprene"]
   input_seq_len: 8
   target_seq_len: 1
   train_ratio: 0.7
   val_ratio: 0.2
   test_ratio: 0.1
-  indices_dir: "/home/zxh/CQ/QWeather/datasets/split/small" # 索引目录路径
+  indices_dir: "/home/zxh/CQ/QWeather/datasets/split/small" # path to indices directory
   shuffle: true
   num_workers: 4
   normalize: true
-  scaler_type: "standard" # 可选: "minmax", "standard"
-  scaler_save_path: "/home/zxh/CQ/QWeather/datasets/scaler.pkl" # 标准化器保存路径
-
+  scaler_type: "standard" # "minmax" or "standard"
 
 # Logging configuration
 logging:

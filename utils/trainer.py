@@ -113,21 +113,17 @@ class Trainer:
             for batch_idx, (data, target) in enumerate(pbar):
                 data, target = data.to(self.device), target.to(self.device)
 
-                # forward pass
                 self.optimizer.zero_grad()
                 output = self.model(data)
-                # print(output)
+
                 loss = self.criterion(output, target)
 
-                # backward pass
                 loss.backward()
                 self.optimizer.step()
 
-                # update total loss
                 total_loss += loss.item()
                 avg_loss = total_loss / (batch_idx + 1)
 
-                # update progress bar
                 pbar.set_postfix({
                     'Loss': f'{avg_loss:.4f}',
                     'LR': f'{self.optimizer.param_groups[0]["lr"]:.6f}'

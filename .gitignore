@@ -6,3 +6,5 @@ isoprene_results.nc
 
 testdata/
 *.nc
+
+__pycache__/

@@ -10,7 +10,6 @@ def plot_training_history(history=None, save_path=None):
     sns.set(style="whitegrid", font_scale=1.2)
     epochs = list(range(1, history['current_epoch'] + 1))
 
-    # 绘制训练 & 验证 Loss
     plt.figure(figsize=(12, 8))
     plt.plot(epochs, history['train_losses'], label='Train Loss', color='royalblue', linewidth=2)
     plt.plot(epochs, history['val_losses'], label='Val Loss', color='orange', linewidth=2)
@@ -23,9 +22,7 @@ def plot_training_history(history=None, save_path=None):
     plt.show()
 
     
-    # 处理并画 metrics_history
     if history['metrics_history']:
-        # 转成字典格式，key是指标名，value是指标列表
         metrics_dict = {}
         for record in history['metrics_history']:
             for k, v in record.items():
