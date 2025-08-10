@@ -59,6 +59,9 @@ class Trainer:
         self.val_losses = []
         self.metrics_history = []
 
+        # default
+        self.start_epoch = 0 
+
 
     def _setup_logger(self, log_dir: str = "logs", save_logs: bool = True) -> logging.Logger:
         """
@@ -200,7 +203,7 @@ class Trainer:
         patience_counter = 0
         start_time = time.time()
 
-        for epoch in range(epochs):
+        for epoch in range(self.start_epoch, epochs):
             self.current_epoch = epoch + 1
 
             # train for one epoch
@@ -311,21 +314,49 @@ class Trainer:
 
 
 
+    # def load_checkpoint(self, checkpoint_path: str) -> None:
+        # """
+        # Load a model checkpoint.
+
+        # Args:
+            # checkpoint_path (str): Path to the checkpoint file.
+        
+        # Returns:
+            # None
+        # """
+        # checkpoint = torch.load(checkpoint_path, map_location=self.device)
+
+        # self.model.load_state_dict(checkpoint['model_state_dict'])
+        # self.optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+
+        # if self.scheduler and 'scheduler_state_dict' in checkpoint:
+            # self.scheduler.load_state_dict(checkpoint['scheduler_state_dict'])
+
+        # self.current_epoch = checkpoint['epoch']
+        # self.train_losses = checkpoint.get('train_losses', [])
+        # self.val_losses = checkpoint.get('val_losses', [])
+        # self.metrics_history = checkpoint.get('metrics_history', [])
+
+        # self.logger.info(f'Checkpoint loaded from epoch {self.current_epoch}')
+
     def load_checkpoint(self, checkpoint_path: str) -> None:
         """
-        Load a model checkpoint.
-
-        Args:
-            checkpoint_path (str): Path to the checkpoint file.
-        
-        Returns:
-            None
+        Load a model checkpoint, skipping unnecessary quantum device state keys.
         """
         checkpoint = torch.load(checkpoint_path, map_location=self.device)
 
-        self.model.load_state_dict(checkpoint['model_state_dict'])
-        self.optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+        model_state = checkpoint['model_state_dict']
 
+        remove_keys = [
+            k for k in model_state.keys()
+            if "q_device.state" in k or "q_device.states" in k
+        ]
+        for k in remove_keys:
+            del model_state[k]
+
+        self.model.load_state_dict(model_state, strict=False)
+
+        self.optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
         if self.scheduler and 'scheduler_state_dict' in checkpoint:
             self.scheduler.load_state_dict(checkpoint['scheduler_state_dict'])
 
@@ -333,6 +364,8 @@ class Trainer:
         self.train_losses = checkpoint.get('train_losses', [])
         self.val_losses = checkpoint.get('val_losses', [])
         self.metrics_history = checkpoint.get('metrics_history', [])
+
+        self.start_epoch = self.current_epoch
 
         self.logger.info(f'Checkpoint loaded from epoch {self.current_epoch}')
 

@@ -1,0 +1,13 @@
+2025-08-10 09:50:02,364 - trainer - INFO - Checkpoint loaded from epoch 100
+2025-08-10 09:50:02,365 - trainer - INFO - Starting training for 150 epochs...
+2025-08-10 09:55:22,454 - trainer - INFO - Epoch 101 / 150 - Train Loss: 0.3071 - val_loss: 0.3020
+2025-08-10 09:55:22,686 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.3019675691338146}[0m
+2025-08-10 10:00:42,093 - trainer - INFO - Epoch 102 / 150 - Train Loss: 0.3071 - val_loss: 0.3020
+2025-08-10 10:06:01,036 - trainer - INFO - Epoch 103 / 150 - Train Loss: 0.3071 - val_loss: 0.3020
+2025-08-10 10:11:21,114 - trainer - INFO - Epoch 104 / 150 - Train Loss: 0.3071 - val_loss: 0.3020
+2025-08-10 10:11:21,452 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.30196362558533163}[0m
+2025-08-10 10:16:41,643 - trainer - INFO - Epoch 105 / 150 - Train Loss: 0.3071 - val_loss: 0.3020
+2025-08-10 10:16:41,912 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.3019579333417556}[0m
+2025-08-10 10:22:01,611 - trainer - INFO - Epoch 106 / 150 - Train Loss: 0.3071 - val_loss: 0.3020
+2025-08-10 10:22:01,922 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.30195026976220746}[0m
+2025-08-10 10:27:22,609 - trainer - INFO - Epoch 107 / 150 - Train Loss: 0.3071 - val_loss: 0.3020

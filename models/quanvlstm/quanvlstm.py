@@ -8,6 +8,39 @@ import torchquantum.functional as tqf
 from torchquantum.layer import U3CU3Layer0
 
 
+class PQCBlock(tq.QuantumModule):
+    def __init__(self, n_qubits, n_layers):
+        super().__init__()
+        self.n_qubits = n_qubits
+        self.n_layers = n_layers
+
+        # 在最新版本中，直接使用 nn.ModuleList 来存储每一层的门
+        self.layers = nn.ModuleList()
+        for _ in range(n_layers):
+            layer_block = nn.ModuleList()
+
+            # 单比特旋转层
+            # Rz, Ry, Rx 门作为可学习的参数化门添加到 ModuleList 中
+            for i in range(n_qubits):
+                # We add the gates with has_params=True to make their rotation angles trainable
+                layer_block.append(tq.RZ(has_params=True, wires=i))
+                layer_block.append(tq.RY(has_params=True, wires=i))
+                layer_block.append(tq.RX(has_params=True, wires=i))
+
+            # 双比特纠缠层
+            # 使用 CNOT 门在相邻量子比特之间创建纠缠
+            for i in range(n_qubits - 1):
+                layer_block.append(tq.CNOT(wires=[i, i + 1]))
+            # 环形纠缠
+            layer_block.append(tq.CNOT(wires=[n_qubits - 1, 0]))
+
+            self.layers.append(layer_block)
+
+    def forward(self, qdev):
+        for layer in self.layers:
+            for gate in layer:
+                gate(qdev)
+
 class QuantumConv(nn.Module):
     def __init__(self, in_channels, out_channels, n_qubits):
         super().__init__()
@@ -19,14 +52,37 @@ class QuantumConv(nn.Module):
         self.encoder = tq.GeneralEncoder(
             [{"input_idx": [i], "func": "ry", "wires": [i]} for i in range(n_qubits)]
         )
-        self.arch = {"n_wires": n_qubits, "n_blocks": 5, "n_layers_per_block": 2}
-        self.q_layer = U3CU3Layer0(self.arch)
+        #self.arch = {"n_wires": n_qubits, "n_blocks": 5, "n_layers_per_block": 3}
+        #self.q_layer = U3CU3Layer0(self.arch)
+
+        n_pqc_layers = 5  # 定义PQC的层数
+        self.q_layer = PQCBlock(n_qubits=n_qubits, n_layers=n_pqc_layers)
 
         self.measure_z = tq.MeasureAll(tq.PauliZ)
         self.measure_x = tq.MeasureAll(tq.PauliX)
         self.measure_y = tq.MeasureAll(tq.PauliY)
 
         self.fc_out = nn.Linear(3 * n_qubits, out_channels)
+
+    def normalize_angles(self, x):
+    # x shape: [B*H*W, n_qubits]
+    # 先按特征维度计算均值和标准差
+        mean = x.mean(dim=0, keepdim=True)    # [1, n_qubits]
+        std = x.std(dim=0, keepdim=True)      # [1, n_qubits]
+
+    # 避免除0
+        std = torch.where(std < 1e-6, torch.ones_like(std), std)
+
+    # 标准化
+        x_norm = (x - mean) / std
+
+    # 限制范围，比如裁剪到 [-3,3]，防止异常值
+        x_clipped = torch.clamp(x_norm, -3, 3)
+
+    # 缩放到旋转角度范围，比如 [-pi, pi]
+        x_scaled = x_clipped * (torch.pi / 3)
+
+        return x_scaled
 
     def forward(self, x):
         B, C, H, W = x.shape
@@ -35,6 +91,7 @@ class QuantumConv(nn.Module):
 
         qdev = tq.QuantumDevice(n_wires=self.n_qubits, bsz=B * H * W, device=x.device)
 
+        x = self.normalize_angles(x)
         self.encoder(qdev, x)
         self.q_layer(qdev)
 

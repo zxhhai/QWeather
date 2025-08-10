@@ -1,0 +1,3 @@
+2025-08-10 11:32:56,770 - trainer - INFO - Starting training for 100 epochs...
+2025-08-10 11:39:10,052 - trainer - INFO - Epoch 1 / 100 - Train Loss: 0.6856 - val_loss: 0.5406
+2025-08-10 11:39:10,094 - trainer - INFO - [92mNew best model saved with metric: {'val_loss': 0.5406109269927529}[0m
