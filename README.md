@@ -1,13 +1,9 @@
 # 基于量子技术的气象预测
 
-## 基本信息
-榜题名称：CQ-19 优化量子计算效率，开启实用量子时代
-作品名称：基于量子技术的气象预测
+## 一、作品简介
 
-## 作品简介
-
-## 环境配置
-本项目基于 **Python 3.11**,**torch**和**torchquantum**，建议使用 Conda 创建独立环境。
+### 环境配置
+本项目基于 **Python 3.11** , **torch** 和 **torchquantum** ，建议使用 Conda 创建独立环境。
 ```bash
 conda create -n qweather python=3.11
 conda activate qweather
@@ -23,7 +19,7 @@ cd torchquantum
 pip install --editable .
 ```
 
-## 项目结构
+## 二、项目结构
 ```bash
 .
 ├── README.md
@@ -32,7 +28,6 @@ pip install --editable .
 │   └── quanvlstm
 ├── configs         # 配置文件
 ├── data_preprocess # 数据预处理
-│   ├── 2018
 ├── datasets        # 数据集划分、加载
 │   ├── dataset.py
 │   ├── scaler
@@ -53,9 +48,11 @@ pip install --editable .
 └── visualizations  # 可视化代码
 ```
 
-## 数据准备
+## 三、数据准备
 
-## 模型训练
+
+
+## 四、模型训练
 ### 经典模型 - ConvLSTM
 更改configs/convlstm_config.yaml配置文件，然后运行
 ```bash
@@ -67,5 +64,5 @@ python train_convlstm.py
 python train_quanvlstm.py
 ```
 
-## 模型评估
+## 五、模型评估
 
