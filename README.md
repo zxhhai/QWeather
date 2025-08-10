@@ -2,7 +2,7 @@
 
 ## 一、作品简介
 
-### 环境配置
+## 二、环境配置
 本项目基于 **Python 3.11** , **torch** 和 **torchquantum** ，建议使用 Conda 创建独立环境。
 ```bash
 conda create -n qweather python=3.11
@@ -19,7 +19,7 @@ cd torchquantum
 pip install --editable .
 ```
 
-## 二、项目结构
+## 三、项目结构
 ```bash
 .
 ├── README.md
@@ -48,11 +48,11 @@ pip install --editable .
 └── visualizations  # 可视化代码
 ```
 
-## 三、数据准备
+## 四、数据准备
 
 
 
-## 四、模型训练
+## 五、模型训练
 ### 经典模型 - ConvLSTM
 更改configs/convlstm_config.yaml配置文件，然后运行
 ```bash
@@ -64,5 +64,5 @@ python train_convlstm.py
 python train_quanvlstm.py
 ```
 
-## 五、模型评估
+## 六、模型评估
 
