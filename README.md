@@ -41,6 +41,7 @@ pip install --editable .
 ├── models          # 模型架构
 │   ├── convlstm
 │   └── quanvlstm
+├── pretrained      # 预训练模型
 ├── requirements.txt
 ├── train_convlstm.py
 ├── train_quanvlstm.py
