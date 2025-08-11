@@ -6,7 +6,7 @@ from utils.evaluater import Evaluater
 
 def main():
     test_loader = create_dataloader(
-        data_file="./datasets/data/large",
+        data_file="./datasets/data/data_large.nc",
         indices_dir="./datasets/split/large",
         var_name=["chla", "hcho", "no2", "o3", "par", "sla", "sst", "wind", "DML", "isoprene"],
         split='test',
