@@ -53,8 +53,9 @@ cd ..
 ```
 
 ## 四、数据准备
+原始数据存放于datasets/data，依分辨率的不同分为data_large.nc/data_small.nc，默认使用data_large.nc。
 
-
+训练集、验证集和测试集的划分位于datasets/split。
 
 ## 五、模型训练
 ### 经典模型 - ConvLSTM
@@ -63,11 +64,20 @@ cd ..
 python train_convlstm.py
 ```
 将启动训练
-### 经典量子混合模型 - QuanvLSTM
+### 量子经典合模型 - QuanvLSTM
 配置好configs/下的quanvlstm.yaml文件，进入项目根目录，然后运行
 ```bash
 python train_quanvlstm.py
 ```
 
 ## 六、模型评估
-更改
+模型的评估在测试集上进行，以平均mse损失为度量指标。
+
+更改evaluate_convlstm.py/evaluate_quanvlstm.py中的model_path为待评估模型保存路径，
+默认评估预训练模型pretrained/convlstm.pth以及pretrained/quanvlstm.pth。
+
+进入项目根目录，分别运行
+```bash
+python evaluate_convlstm.py
+python evaluate_quanvlstm.py
+```
