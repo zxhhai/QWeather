@@ -6,7 +6,7 @@ from utils.evaluater import Evaluater
 
 def main():
     test_loader = create_dataloader(
-        data_file="/home/zxh/CQ/dataset/all_dataset.nc",
+        data_file="./datasets/data/large",
         indices_dir="./datasets/split/large",
         var_name=["chla", "hcho", "no2", "o3", "par", "sla", "sst", "wind", "DML", "isoprene"],
         split='test',
@@ -30,7 +30,7 @@ def main():
             T_out=1,
             n_qubits_list=[4, 4]
         ),
-        model_path="./pretrained/quanvlstm.pth",
+        model_path="./pretrained/quanvlstm.pth", # 待评估模型保存路径
         dataloader=test_loader,
         device=torch.device("cuda" if torch.cuda.is_available() else "cpu")
     )

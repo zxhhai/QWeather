@@ -230,7 +230,7 @@ def show_split_info(indices_dir):
 
 if __name__ == "__main__":
     # 示例用法
-    data_file = "/root/autodl-tmp/data_small.nc"
+    data_file = "data/data_small.nc"
     output_dir = "split/small"
     
     print("Creating split indices...")

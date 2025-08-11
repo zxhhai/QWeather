@@ -21,7 +21,6 @@ training:
   save_every: 5
   device: "cuda"
   seed: 42
-  checkpoint_path: "./checkpoints/quanvlstm" # 保存模型检查点的路径
   resume: false
 
 # Optimizer configuration
@@ -39,14 +38,14 @@ scheduler:
 
 # Data configuration
 data:
-  file_path: "/root/autodl-tmp/all_dataset.nc" # 更改为数据文件路径
+  file_path: "./datasets/data/data_large" # 更改为数据文件路径
   var_name: ["chla", "hcho", "no2", "o3", "par", "sla", "sst", "wind", "DML", "isoprene"]
   input_seq_len: 6
   target_seq_len: 1
   train_ratio: 0.7
   val_ratio: 0.2
   test_ratio: 0.1
-  indices_dir: "/root/autodl-tmp/QWeather/datasets/split/large" # 索引目录路径
+  indices_dir: "./datasets/split/large" # 索引目录路径
   shuffle: true
   num_workers: 4
   normalize: true

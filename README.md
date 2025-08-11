@@ -17,6 +17,7 @@ pip install -r requirements.txt
 git clone https://github.com/mit-han-lab/torchquantum.git
 cd torchquantum
 pip install --editable .
+cd ..
 ```
 
 ## 三、项目结构
@@ -29,12 +30,12 @@ pip install --editable .
 ├── configs         # 配置文件
 ├── data_preprocess # 数据预处理
 ├── datasets        # 数据集划分、加载
+│   ├── data
 │   ├── dataset.py
 │   ├── scaler
 │   └── split       # 数据集的划分（使用索引）
 │       ├── large
-│       ├── small
-│       └── tiny
+│       └── small
 ├── logs            # 训练日志
 │   ├── convlstm
 │   └── quanvlstm
@@ -45,6 +46,8 @@ pip install --editable .
 ├── requirements.txt
 ├── train_convlstm.py
 ├── train_quanvlstm.py
+├── evaluate_convlstm.py
+├── evaluate_quanvlstm.py
 ├── utils           # 训练代码、工具函数
 └── visualizations  # 可视化代码
 ```
@@ -55,15 +58,16 @@ pip install --editable .
 
 ## 五、模型训练
 ### 经典模型 - ConvLSTM
-更改configs/convlstm_config.yaml配置文件，然后运行
+配置好configs/下的convlstm.yaml文件，进入项目根目录，然后运行
 ```bash
 python train_convlstm.py
 ```
+将启动训练
 ### 经典量子混合模型 - QuanvLSTM
-更改configs/quanvlstm_config.yaml配置文件，然后运行
+配置好configs/下的quanvlstm.yaml文件，进入项目根目录，然后运行
 ```bash
 python train_quanvlstm.py
 ```
 
 ## 六、模型评估
-
+更改

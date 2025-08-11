@@ -4,8 +4,8 @@ def get_small_dataset(ds):
     """
     """
     ds_small = ds.isel(
-        latitude=slice(40, 80),
-        longitude=slice(0, 40),
+        latitude=slice(120, 240),
+        longitude=slice(240, 480),
     )
     
     print(f"Original shape: {ds.sizes}")
@@ -15,9 +15,9 @@ def get_small_dataset(ds):
     return ds_small
 
 
-ds = xr.open_dataset('/root/autodl-tmp/all_dataset.nc')
+ds = xr.open_dataset('./datasets/data/data_large.nc')
 
 ds_small = get_small_dataset(ds)
 
 # 保存小数据集
-ds_small.to_netcdf('/root/autodl-tmp/data_small.nc')
+ds_small.to_netcdf('./datasets/data/data_small.nc')
