@@ -1,6 +1,7 @@
 # 基于量子技术的气象预测
 
 ## 一、作品简介
+本项目旨在构建机器学习模型ConvLSTM，量子经典混合模型QuanvLSTM，实现对包含异戊二烯等的多维时空气象数据的联合预测。
 
 ## 二、环境配置
 本项目基于 **Python 3.11** , **torch** 和 **torchquantum** ，建议使用 Conda 创建独立环境。
@@ -69,6 +70,7 @@ python train_convlstm.py
 ```bash
 python train_quanvlstm.py
 ```
+pretrained/文件夹下提供预训练模型convlstm.pth，quanvlstm。
 
 ## 六、模型评估
 模型的评估在测试集上进行，以平均mse损失为度量指标。
