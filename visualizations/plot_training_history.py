@@ -6,7 +6,7 @@ def plot_training_history(history=None, save_path=None):
     if save_path is not None:
         with open(save_path, 'r') as f:
             history = json.load(f)
-
+    plt.rcParams.update({'font.size': 16})
     sns.set(style="whitegrid", font_scale=1.2)
     epochs = list(range(1, history['current_epoch'] + 1))
 
@@ -39,4 +39,4 @@ def plot_training_history(history=None, save_path=None):
         plt.show()
 
 if __name__ == "__main__":
-    plot_training_history(history_path='checkpoints/convlstm/training_history.json')
+    plot_training_history(save_path='pretrained/quanvlstm_training_history.json')
