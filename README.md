@@ -4,7 +4,7 @@
 This project aims to develop machine learning models for spatiotemporal weather prediction, including a classical ConvLSTM and a hybrid quantum-classical model (QuanvLSTM). The models are designed to jointly predict multi-dimensional atmospheric variables such as isoprene.
 
 <p align="center">
-  <img src="assets/banner.png" width="500"/>
+  <img src="assets/banner.png" width="800"/>
 </p>
 
 ## Environment Setup
